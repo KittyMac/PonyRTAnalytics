@@ -1,0 +1,361 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		461333C1237B2C4C008A87A1 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 461333C0237B2C4C008A87A1 /* AppDelegate.m */; };
+		461333C4237B2C4C008A87A1 /* Document.m in Sources */ = {isa = PBXBuildFile; fileRef = 461333C3237B2C4C008A87A1 /* Document.m */; };
+		461333C9237B2C4D008A87A1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 461333C8237B2C4D008A87A1 /* Assets.xcassets */; };
+		461333CC237B2C4D008A87A1 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 461333CA237B2C4D008A87A1 /* MainMenu.xib */; };
+		461333CF237B2C4D008A87A1 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 461333CE237B2C4D008A87A1 /* main.m */; };
+		4641E571237B323B00D98951 /* OpenGLView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4641E570237B323B00D98951 /* OpenGLView.m */; };
+		4641E574237B334300D98951 /* NSTimerAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 4641E573237B334300D98951 /* NSTimerAdditions.m */; };
+		4641E577237B3A4800D98951 /* DocumentWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4641E575237B3A4800D98951 /* DocumentWindowController.m */; };
+		4641E57A237B454900D98951 /* DocumentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4641E578237B454900D98951 /* DocumentViewController.m */; };
+		4641E57C237B46BC00D98951 /* Document.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4641E57B237B46BC00D98951 /* Document.storyboard */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		461333BC237B2C4C008A87A1 /* PonyRTAnalytics.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PonyRTAnalytics.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		461333BF237B2C4C008A87A1 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		461333C0237B2C4C008A87A1 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		461333C2237B2C4C008A87A1 /* Document.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Document.h; sourceTree = "<group>"; };
+		461333C3237B2C4C008A87A1 /* Document.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Document.m; sourceTree = "<group>"; };
+		461333C8237B2C4D008A87A1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		461333CB237B2C4D008A87A1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		461333CD237B2C4D008A87A1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		461333CE237B2C4D008A87A1 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		461333D0237B2C4D008A87A1 /* PonyRTAnalytics.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PonyRTAnalytics.entitlements; sourceTree = "<group>"; };
+		4641E56F237B323B00D98951 /* OpenGLView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenGLView.h; sourceTree = "<group>"; };
+		4641E570237B323B00D98951 /* OpenGLView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OpenGLView.m; sourceTree = "<group>"; };
+		4641E572237B334300D98951 /* NSTimerAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSTimerAdditions.h; sourceTree = "<group>"; };
+		4641E573237B334300D98951 /* NSTimerAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSTimerAdditions.m; sourceTree = "<group>"; };
+		4641E575237B3A4800D98951 /* DocumentWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DocumentWindowController.m; sourceTree = "<group>"; };
+		4641E576237B3A4800D98951 /* DocumentWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DocumentWindowController.h; sourceTree = "<group>"; };
+		4641E578237B454900D98951 /* DocumentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DocumentViewController.m; sourceTree = "<group>"; };
+		4641E579237B454900D98951 /* DocumentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DocumentViewController.h; sourceTree = "<group>"; };
+		4641E57B237B46BC00D98951 /* Document.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Document.storyboard; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		461333B9237B2C4C008A87A1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		461333B3237B2C4C008A87A1 = {
+			isa = PBXGroup;
+			children = (
+				461333BE237B2C4C008A87A1 /* PonyRTAnalytics */,
+				461333BD237B2C4C008A87A1 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		461333BD237B2C4C008A87A1 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				461333BC237B2C4C008A87A1 /* PonyRTAnalytics.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		461333BE237B2C4C008A87A1 /* PonyRTAnalytics */ = {
+			isa = PBXGroup;
+			children = (
+				4641E572237B334300D98951 /* NSTimerAdditions.h */,
+				4641E573237B334300D98951 /* NSTimerAdditions.m */,
+				461333BF237B2C4C008A87A1 /* AppDelegate.h */,
+				461333C0237B2C4C008A87A1 /* AppDelegate.m */,
+				4641E56F237B323B00D98951 /* OpenGLView.h */,
+				4641E570237B323B00D98951 /* OpenGLView.m */,
+				4641E579237B454900D98951 /* DocumentViewController.h */,
+				4641E578237B454900D98951 /* DocumentViewController.m */,
+				4641E576237B3A4800D98951 /* DocumentWindowController.h */,
+				4641E575237B3A4800D98951 /* DocumentWindowController.m */,
+				461333C2237B2C4C008A87A1 /* Document.h */,
+				461333C3237B2C4C008A87A1 /* Document.m */,
+				4641E57B237B46BC00D98951 /* Document.storyboard */,
+				461333C8237B2C4D008A87A1 /* Assets.xcassets */,
+				461333CA237B2C4D008A87A1 /* MainMenu.xib */,
+				461333CD237B2C4D008A87A1 /* Info.plist */,
+				461333CE237B2C4D008A87A1 /* main.m */,
+				461333D0237B2C4D008A87A1 /* PonyRTAnalytics.entitlements */,
+			);
+			path = PonyRTAnalytics;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		461333BB237B2C4C008A87A1 /* PonyRTAnalytics */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 461333D3237B2C4D008A87A1 /* Build configuration list for PBXNativeTarget "PonyRTAnalytics" */;
+			buildPhases = (
+				461333B8237B2C4C008A87A1 /* Sources */,
+				461333B9237B2C4C008A87A1 /* Frameworks */,
+				461333BA237B2C4C008A87A1 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PonyRTAnalytics;
+			productName = PonyRTAnalytics;
+			productReference = 461333BC237B2C4C008A87A1 /* PonyRTAnalytics.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		461333B4237B2C4C008A87A1 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 1010;
+				ORGANIZATIONNAME = "Rocco Bowling";
+				TargetAttributes = {
+					461333BB237B2C4C008A87A1 = {
+						CreatedOnToolsVersion = 10.1;
+					};
+				};
+			};
+			buildConfigurationList = 461333B7237B2C4C008A87A1 /* Build configuration list for PBXProject "PonyRTAnalytics" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 461333B3237B2C4C008A87A1;
+			productRefGroup = 461333BD237B2C4C008A87A1 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				461333BB237B2C4C008A87A1 /* PonyRTAnalytics */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		461333BA237B2C4C008A87A1 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				461333C9237B2C4D008A87A1 /* Assets.xcassets in Resources */,
+				4641E57C237B46BC00D98951 /* Document.storyboard in Resources */,
+				461333CC237B2C4D008A87A1 /* MainMenu.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		461333B8237B2C4C008A87A1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				461333C4237B2C4C008A87A1 /* Document.m in Sources */,
+				4641E577237B3A4800D98951 /* DocumentWindowController.m in Sources */,
+				461333CF237B2C4D008A87A1 /* main.m in Sources */,
+				4641E57A237B454900D98951 /* DocumentViewController.m in Sources */,
+				4641E574237B334300D98951 /* NSTimerAdditions.m in Sources */,
+				461333C1237B2C4C008A87A1 /* AppDelegate.m in Sources */,
+				4641E571237B323B00D98951 /* OpenGLView.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		461333CA237B2C4D008A87A1 /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				461333CB237B2C4D008A87A1 /* Base */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		461333D1237B2C4D008A87A1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		461333D2237B2C4D008A87A1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		461333D4237B2C4D008A87A1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = PonyRTAnalytics/PonyRTAnalytics.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = A3LA43YQN5;
+				INFOPLIST_FILE = PonyRTAnalytics/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.chimerasw.PonyRTAnalytics;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		461333D5237B2C4D008A87A1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = PonyRTAnalytics/PonyRTAnalytics.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = A3LA43YQN5;
+				INFOPLIST_FILE = PonyRTAnalytics/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.chimerasw.PonyRTAnalytics;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		461333B7237B2C4C008A87A1 /* Build configuration list for PBXProject "PonyRTAnalytics" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				461333D1237B2C4D008A87A1 /* Debug */,
+				461333D2237B2C4D008A87A1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		461333D3237B2C4D008A87A1 /* Build configuration list for PBXNativeTarget "PonyRTAnalytics" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				461333D4237B2C4D008A87A1 /* Debug */,
+				461333D5237B2C4D008A87A1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 461333B4237B2C4C008A87A1 /* Project object */;
+}

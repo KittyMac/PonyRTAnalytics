@@ -1,0 +1,394 @@
+//
+//  OpenGLView.m
+//  Thrones
+//
+//  Created by Rocco Bowling on 3/26/09.
+//  Copyright 2009 Chimera Software. All rights reserved.
+//	Chimera Software grants Small Planet Digital the rights to use the software "AS-IS".
+//
+
+#import "OpenGLView.h"
+#import <OpenGL/gl.h>
+#import "NSTimerAdditions.h"
+
+
+#define kMillisecondsPerFrame 16.0f
+
+@implementation OpenGLView
+
+- (unsigned long) getNumberOfUpdatesToPerform
+{
+	unsigned long n = 0;
+	
+	clock_overflow += ([[NSDate date] timeIntervalSinceDate:clock_time] * 1000.0);
+	
+	n = clock_overflow / kMillisecondsPerFrame;
+	
+	clock_overflow -= n * kMillisecondsPerFrame;
+	
+	clock_time = [NSDate date];
+	
+	if(clock_overflow < 0)
+	{
+		clock_overflow = 0;
+	}
+	
+	return n;
+}
+
+- (void) updateTimer:(NSTimer *) localTimer
+{
+	unsigned long millisecondsCounter = [self getNumberOfUpdatesToPerform];
+	
+	if(millisecondsCounter > 5)
+	{
+		millisecondsCounter = 1;
+	}
+	
+	while(millisecondsCounter--)
+	{
+		[_delegate Update];
+		
+		[self setNeedsDisplay:YES];
+	}
+}
+
+- (void) prepareOpenGL
+{
+	if(didInit == NO)
+	{
+		didInit = YES;
+		
+		GLint swap_enabled = 1;
+		[[self openGLContext] setValues:&swap_enabled forParameter:NSOpenGLCPSwapInterval];
+		
+		clock_time = [NSDate date];
+		clock_overflow = 0;
+		update_timer = [NSTimer scheduledInterruptTimerWithTimeInterval:0.01666666666667
+                                                                 target:self
+                                                               selector:@selector(updateTimer:)
+                                                               userInfo:nil
+                                                                repeats:YES];
+		
+		[_delegate Init];
+	}
+    
+    
+}
+
+- (void)setLayer:(CALayer*)layer
+{
+    [super setLayer:layer];
+
+    [[self openGLContext] update];
+}
+
+
+- (void)drawRect:(NSRect)rect
+{
+	[[self openGLContext] makeCurrentContext];
+	
+	[_delegate Render];
+    	
+	[[self openGLContext] flushBuffer];
+}
+
+- (void) stopAnimation
+{
+	[update_timer invalidate];
+	update_timer = NULL;
+}
+
+- (void) dealloc
+{
+	NSLog(@"CLOSING OPENGL VIEW");
+	
+	[update_timer invalidate];
+	
+	[_delegate Destruct];
+	
+	[self clearGLContext];
+}
+
+- (void) reshape
+{
+	[_delegate Reshape];
+}
+
+
+#pragma mark -
+
+- (BOOL) acceptsFirstResponder
+{
+    return YES;
+}
+
+- (BOOL) becomesFirstResponder
+{
+    return YES;
+}
+
+- (BOOL)canBecomeKeyView
+{
+	return YES;
+}
+
+- (BOOL)acceptsFirstMouse:(NSEvent *)theEvent
+{
+	return YES;
+}
+
+- (void)mouseDown:(NSEvent *)theEvent
+{
+	[_delegate Event:theEvent];
+}
+
+- (void)mouseUp:(NSEvent *)theEvent
+{
+	[_delegate Event:theEvent];
+}
+
+
+- (void)keyUp:(NSEvent *)theEvent
+{
+	[_delegate Event:theEvent];
+}
+
+- (void)keyDown:(NSEvent *)theEvent
+{
+	[_delegate Event:theEvent];
+}
+
+- (void)rightMouseDown:(NSEvent *)theEvent
+{
+	[_delegate Event:theEvent];
+}
+
+- (void)rightMouseUp:(NSEvent *)theEvent
+{
+	[_delegate Event:theEvent];
+}
+
+- (void)otherMouseDown:(NSEvent *)theEvent
+{
+	[_delegate Event:theEvent];
+}
+
+- (void)otherMouseUp:(NSEvent *)theEvent
+{
+	[_delegate Event:theEvent];
+}
+
+- (void)mouseMoved:(NSEvent *)theEvent
+{
+	[_delegate Event:theEvent];
+}
+
+- (void)mouseDragged:(NSEvent *)theEvent
+{
+	[_delegate Event:theEvent];
+}
+
+- (void)rightMouseDragged:(NSEvent *)theEvent
+{
+	[_delegate Event:theEvent];
+}
+
+- (void)otherMouseDragged:(NSEvent *)theEvent
+{
+	[_delegate Event:theEvent];
+}
+
+- (void)scrollWheel:(NSEvent *)theEvent
+{
+	[_delegate Event:theEvent];
+}
+
+- (void)mouseEntered:(NSEvent *)theEvent
+{
+	[_delegate Event:theEvent];
+}
+
+- (void)mouseExited:(NSEvent *)theEvent
+{
+	[_delegate Event:theEvent];
+}
+
+- (void)flagsChanged:(NSEvent *)theEvent
+{
+	[_delegate Event:theEvent];
+}
+
+- (void)cursorUpdate:(NSEvent *)theEvent
+{
+	[_delegate Event:theEvent];
+}
+
+
+#pragma mark -
+
+- (void) ExtractFrustum
+{
+	float   proj[16];
+	float   modl[16];
+	float   clip[16];
+	float   t;
+	
+	/* Get the current PROJECTION matrix from OpenGL */
+	glGetFloatv( GL_PROJECTION_MATRIX, proj );
+	
+	/* Get the current MODELVIEW matrix from OpenGL */
+	glGetFloatv( GL_MODELVIEW_MATRIX, modl );
+	
+	/* Combine the two matrices (multiply projection by modelview) */
+	clip[ 0] = modl[ 0] * proj[ 0] + modl[ 1] * proj[ 4] + modl[ 2] * proj[ 8] + modl[ 3] * proj[12];
+	clip[ 1] = modl[ 0] * proj[ 1] + modl[ 1] * proj[ 5] + modl[ 2] * proj[ 9] + modl[ 3] * proj[13];
+	clip[ 2] = modl[ 0] * proj[ 2] + modl[ 1] * proj[ 6] + modl[ 2] * proj[10] + modl[ 3] * proj[14];
+	clip[ 3] = modl[ 0] * proj[ 3] + modl[ 1] * proj[ 7] + modl[ 2] * proj[11] + modl[ 3] * proj[15];
+	
+	clip[ 4] = modl[ 4] * proj[ 0] + modl[ 5] * proj[ 4] + modl[ 6] * proj[ 8] + modl[ 7] * proj[12];
+	clip[ 5] = modl[ 4] * proj[ 1] + modl[ 5] * proj[ 5] + modl[ 6] * proj[ 9] + modl[ 7] * proj[13];
+	clip[ 6] = modl[ 4] * proj[ 2] + modl[ 5] * proj[ 6] + modl[ 6] * proj[10] + modl[ 7] * proj[14];
+	clip[ 7] = modl[ 4] * proj[ 3] + modl[ 5] * proj[ 7] + modl[ 6] * proj[11] + modl[ 7] * proj[15];
+	
+	clip[ 8] = modl[ 8] * proj[ 0] + modl[ 9] * proj[ 4] + modl[10] * proj[ 8] + modl[11] * proj[12];
+	clip[ 9] = modl[ 8] * proj[ 1] + modl[ 9] * proj[ 5] + modl[10] * proj[ 9] + modl[11] * proj[13];
+	clip[10] = modl[ 8] * proj[ 2] + modl[ 9] * proj[ 6] + modl[10] * proj[10] + modl[11] * proj[14];
+	clip[11] = modl[ 8] * proj[ 3] + modl[ 9] * proj[ 7] + modl[10] * proj[11] + modl[11] * proj[15];
+	
+	clip[12] = modl[12] * proj[ 0] + modl[13] * proj[ 4] + modl[14] * proj[ 8] + modl[15] * proj[12];
+	clip[13] = modl[12] * proj[ 1] + modl[13] * proj[ 5] + modl[14] * proj[ 9] + modl[15] * proj[13];
+	clip[14] = modl[12] * proj[ 2] + modl[13] * proj[ 6] + modl[14] * proj[10] + modl[15] * proj[14];
+	clip[15] = modl[12] * proj[ 3] + modl[13] * proj[ 7] + modl[14] * proj[11] + modl[15] * proj[15];
+	
+	/* Extract the numbers for the RIGHT plane */
+	frustum[0][0] = clip[ 3] - clip[ 0];
+	frustum[0][1] = clip[ 7] - clip[ 4];
+	frustum[0][2] = clip[11] - clip[ 8];
+	frustum[0][3] = clip[15] - clip[12];
+	
+	/* Normalize the result */
+	t = sqrt( frustum[0][0] * frustum[0][0] + frustum[0][1] * frustum[0][1] + frustum[0][2] * frustum[0][2] );
+	frustum[0][0] /= t;
+	frustum[0][1] /= t;
+	frustum[0][2] /= t;
+	frustum[0][3] /= t;
+	
+	/* Extract the numbers for the LEFT plane */
+	frustum[1][0] = clip[ 3] + clip[ 0];
+	frustum[1][1] = clip[ 7] + clip[ 4];
+	frustum[1][2] = clip[11] + clip[ 8];
+	frustum[1][3] = clip[15] + clip[12];
+	
+	/* Normalize the result */
+	t = sqrt( frustum[1][0] * frustum[1][0] + frustum[1][1] * frustum[1][1] + frustum[1][2] * frustum[1][2] );
+	frustum[1][0] /= t;
+	frustum[1][1] /= t;
+	frustum[1][2] /= t;
+	frustum[1][3] /= t;
+	
+	/* Extract the BOTTOM plane */
+	frustum[2][0] = clip[ 3] + clip[ 1];
+	frustum[2][1] = clip[ 7] + clip[ 5];
+	frustum[2][2] = clip[11] + clip[ 9];
+	frustum[2][3] = clip[15] + clip[13];
+	
+	/* Normalize the result */
+	t = sqrt( frustum[2][0] * frustum[2][0] + frustum[2][1] * frustum[2][1] + frustum[2][2] * frustum[2][2] );
+	frustum[2][0] /= t;
+	frustum[2][1] /= t;
+	frustum[2][2] /= t;
+	frustum[2][3] /= t;
+	
+	/* Extract the TOP plane */
+	frustum[3][0] = clip[ 3] - clip[ 1];
+	frustum[3][1] = clip[ 7] - clip[ 5];
+	frustum[3][2] = clip[11] - clip[ 9];
+	frustum[3][3] = clip[15] - clip[13];
+	
+	/* Normalize the result */
+	t = sqrt( frustum[3][0] * frustum[3][0] + frustum[3][1] * frustum[3][1] + frustum[3][2] * frustum[3][2] );
+	frustum[3][0] /= t;
+	frustum[3][1] /= t;
+	frustum[3][2] /= t;
+	frustum[3][3] /= t;
+	
+	/* Extract the FAR plane */
+	frustum[4][0] = clip[ 3] - clip[ 2];
+	frustum[4][1] = clip[ 7] - clip[ 6];
+	frustum[4][2] = clip[11] - clip[10];
+	frustum[4][3] = clip[15] - clip[14];
+	
+	/* Normalize the result */
+	t = sqrt( frustum[4][0] * frustum[4][0] + frustum[4][1] * frustum[4][1] + frustum[4][2] * frustum[4][2] );
+	frustum[4][0] /= t;
+	frustum[4][1] /= t;
+	frustum[4][2] /= t;
+	frustum[4][3] /= t;
+	
+	/* Extract the NEAR plane */
+	frustum[5][0] = clip[ 3] + clip[ 2];
+	frustum[5][1] = clip[ 7] + clip[ 6];
+	frustum[5][2] = clip[11] + clip[10];
+	frustum[5][3] = clip[15] + clip[14];
+	
+	/* Normalize the result */
+	t = sqrt( frustum[5][0] * frustum[5][0] + frustum[5][1] * frustum[5][1] + frustum[5][2] * frustum[5][2] );
+	frustum[5][0] /= t;
+	frustum[5][1] /= t;
+	frustum[5][2] /= t;
+	frustum[5][3] /= t;
+}
+
+- (BOOL) SphereInFrustum:(float[3])center
+			  withRadius:(float) radius
+{
+	int p;
+	
+	for( p = 0; p < 6; p++ )
+	{
+		if( frustum[p][0] * center[0] + frustum[p][1] * center[1] + frustum[p][2] * center[2] + frustum[p][3] <= -radius )
+		{
+			return NO;
+		}
+	}
+	return YES;
+}
+
+#pragma mark -
+#pragma mark dynamic screenshots
+
+- (NSImage*) image
+{
+    NSBitmapImageRep* imageRep;
+    NSImage* image;
+    NSSize viewSize = [self bounds].size;
+    int width = viewSize.width;
+    int height = viewSize.height;
+	
+    [self lockFocus];
+    [self drawRect:[self bounds]];
+    [self unlockFocus];
+	
+    imageRep=[[NSBitmapImageRep alloc] initWithBitmapDataPlanes:NULL
+                                                      pixelsWide:width
+                                                      pixelsHigh:height
+                                                   bitsPerSample:8
+                                                 samplesPerPixel:4
+                                                        hasAlpha:YES
+                                                        isPlanar:NO
+                                                  colorSpaceName:NSDeviceRGBColorSpace
+                                                     bytesPerRow:width*4
+                                                    bitsPerPixel:32];
+    [[self openGLContext] makeCurrentContext];
+    glReadPixels(0,0,width,height,GL_RGBA,GL_UNSIGNED_BYTE,[imageRep bitmapData]);
+    image = [[NSImage alloc] initWithSize:NSMakeSize(width,height)];
+    [image addRepresentation:imageRep];
+    [image setFlipped:YES]; // this is deprecated in 10.6
+    [image lockFocusOnRepresentation:imageRep]; // this will flip the rep
+    [image unlockFocus];
+    return image;
+}
+
+
+@end
