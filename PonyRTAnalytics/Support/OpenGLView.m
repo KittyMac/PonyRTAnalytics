@@ -100,9 +100,7 @@
 }
 
 - (void) dealloc
-{
-	NSLog(@"CLOSING OPENGL VIEW");
-	
+{	
 	[update_timer invalidate];
 	
 	[_delegate Destruct];

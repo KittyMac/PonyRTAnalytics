@@ -8,11 +8,18 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "OpenGLView.h"
 
-@interface DocumentWindowController : NSWindowController
+@interface ActorGraph : NSObject
 {
     
 }
+
+@property (nonatomic, retain) NSMutableDictionary * actors;
+
+- (id) initWithEvents:(NSArray *) ponyEvents;
+
+- (void) layoutCircle;
+
+- (void) render;
 
 @end

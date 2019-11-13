@@ -17,6 +17,9 @@
 		4641E577237B3A4800D98951 /* DocumentWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4641E575237B3A4800D98951 /* DocumentWindowController.m */; };
 		4641E57A237B454900D98951 /* DocumentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4641E578237B454900D98951 /* DocumentViewController.m */; };
 		4641E57C237B46BC00D98951 /* Document.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4641E57B237B46BC00D98951 /* Document.storyboard */; };
+		466D0309237BA1F8003D9196 /* ActorGraph.m in Sources */ = {isa = PBXBuildFile; fileRef = 466D0308237BA1F8003D9196 /* ActorGraph.m */; };
+		466D030C237BA24C003D9196 /* PonyEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 466D030A237BA24B003D9196 /* PonyEvent.m */; };
+		466D030F237BAA18003D9196 /* Actor.m in Sources */ = {isa = PBXBuildFile; fileRef = 466D030E237BAA18003D9196 /* Actor.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,6 +42,13 @@
 		4641E578237B454900D98951 /* DocumentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DocumentViewController.m; sourceTree = "<group>"; };
 		4641E579237B454900D98951 /* DocumentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DocumentViewController.h; sourceTree = "<group>"; };
 		4641E57B237B46BC00D98951 /* Document.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Document.storyboard; sourceTree = "<group>"; };
+		466D0306237BA1D5003D9196 /* vvector.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = vvector.h; sourceTree = "<group>"; };
+		466D0307237BA1F8003D9196 /* ActorGraph.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActorGraph.h; sourceTree = "<group>"; };
+		466D0308237BA1F8003D9196 /* ActorGraph.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActorGraph.m; sourceTree = "<group>"; };
+		466D030A237BA24B003D9196 /* PonyEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PonyEvent.m; sourceTree = "<group>"; };
+		466D030B237BA24C003D9196 /* PonyEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PonyEvent.h; sourceTree = "<group>"; };
+		466D030D237BAA18003D9196 /* Actor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Actor.h; sourceTree = "<group>"; };
+		466D030E237BAA18003D9196 /* Actor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Actor.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,26 +81,49 @@
 		461333BE237B2C4C008A87A1 /* PonyRTAnalytics */ = {
 			isa = PBXGroup;
 			children = (
-				4641E572237B334300D98951 /* NSTimerAdditions.h */,
-				4641E573237B334300D98951 /* NSTimerAdditions.m */,
-				461333BF237B2C4C008A87A1 /* AppDelegate.h */,
-				461333C0237B2C4C008A87A1 /* AppDelegate.m */,
-				4641E56F237B323B00D98951 /* OpenGLView.h */,
-				4641E570237B323B00D98951 /* OpenGLView.m */,
+				466D0305237BA17F003D9196 /* Resources */,
+				466D0304237BA166003D9196 /* Support */,
+				466D0307237BA1F8003D9196 /* ActorGraph.h */,
+				466D0308237BA1F8003D9196 /* ActorGraph.m */,
+				466D030D237BAA18003D9196 /* Actor.h */,
+				466D030E237BAA18003D9196 /* Actor.m */,
+				466D030B237BA24C003D9196 /* PonyEvent.h */,
+				466D030A237BA24B003D9196 /* PonyEvent.m */,
+				461333C2237B2C4C008A87A1 /* Document.h */,
+				461333C3237B2C4C008A87A1 /* Document.m */,
 				4641E579237B454900D98951 /* DocumentViewController.h */,
 				4641E578237B454900D98951 /* DocumentViewController.m */,
 				4641E576237B3A4800D98951 /* DocumentWindowController.h */,
 				4641E575237B3A4800D98951 /* DocumentWindowController.m */,
-				461333C2237B2C4C008A87A1 /* Document.h */,
-				461333C3237B2C4C008A87A1 /* Document.m */,
-				4641E57B237B46BC00D98951 /* Document.storyboard */,
-				461333C8237B2C4D008A87A1 /* Assets.xcassets */,
-				461333CA237B2C4D008A87A1 /* MainMenu.xib */,
 				461333CD237B2C4D008A87A1 /* Info.plist */,
-				461333CE237B2C4D008A87A1 /* main.m */,
 				461333D0237B2C4D008A87A1 /* PonyRTAnalytics.entitlements */,
 			);
 			path = PonyRTAnalytics;
+			sourceTree = "<group>";
+		};
+		466D0304237BA166003D9196 /* Support */ = {
+			isa = PBXGroup;
+			children = (
+				466D0306237BA1D5003D9196 /* vvector.h */,
+				461333CE237B2C4D008A87A1 /* main.m */,
+				4641E56F237B323B00D98951 /* OpenGLView.h */,
+				4641E570237B323B00D98951 /* OpenGLView.m */,
+				461333BF237B2C4C008A87A1 /* AppDelegate.h */,
+				461333C0237B2C4C008A87A1 /* AppDelegate.m */,
+				4641E572237B334300D98951 /* NSTimerAdditions.h */,
+				4641E573237B334300D98951 /* NSTimerAdditions.m */,
+			);
+			path = Support;
+			sourceTree = "<group>";
+		};
+		466D0305237BA17F003D9196 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				4641E57B237B46BC00D98951 /* Document.storyboard */,
+				461333C8237B2C4D008A87A1 /* Assets.xcassets */,
+				461333CA237B2C4D008A87A1 /* MainMenu.xib */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -164,7 +197,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				461333C4237B2C4C008A87A1 /* Document.m in Sources */,
+				466D030F237BAA18003D9196 /* Actor.m in Sources */,
 				4641E577237B3A4800D98951 /* DocumentWindowController.m in Sources */,
+				466D0309237BA1F8003D9196 /* ActorGraph.m in Sources */,
+				466D030C237BA24C003D9196 /* PonyEvent.m in Sources */,
 				461333CF237B2C4D008A87A1 /* main.m in Sources */,
 				4641E57A237B454900D98951 /* DocumentViewController.m in Sources */,
 				4641E574237B334300D98951 /* NSTimerAdditions.m in Sources */,

@@ -6,3 +6,5 @@ build/*
 TAGS
 tags
 .deps/*
+
+large.ponyrt_analytics

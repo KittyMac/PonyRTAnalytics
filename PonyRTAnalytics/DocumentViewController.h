@@ -10,9 +10,16 @@
 #import <Cocoa/Cocoa.h>
 #import "OpenGLView.h"
 
+@class ActorGraph;
+
 @interface DocumentViewController : NSViewController <OpenGLViewDelegate>
 {
     IBOutlet OpenGLView * glview;
 }
+
+@property (nonatomic, retain) NSMutableArray * ponyEvents;
+@property (nonatomic, retain) ActorGraph * graph;
+
+- (void) parsePonyEvents:(NSArray *)eventsAsStrings;
 
 @end

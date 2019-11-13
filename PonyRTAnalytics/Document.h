@@ -11,7 +11,7 @@
 
 @interface Document : NSDocument
 {
-    
+    NSArray * csvLines;
 }
 
 @end
