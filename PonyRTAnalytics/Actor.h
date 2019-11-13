@@ -19,8 +19,10 @@
 @property (nonatomic, assign) unsigned long batchSize;
 @property (nonatomic, assign) unsigned long priority;
 
+@property (nonatomic, assign) bool running;
 @property (nonatomic, assign) bool muted;
 @property (nonatomic, assign) bool overloaded;
+@property (nonatomic, assign) bool underpressure;
 
 @property (nonatomic, assign) float x;
 @property (nonatomic, assign) float y;

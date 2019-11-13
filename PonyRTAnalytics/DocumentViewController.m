@@ -39,7 +39,15 @@
         if ([event actorTag] > 0) {
             [_ponyEvents addObject:event];
         }
+        
+        if (event.time > endTime) {
+            endTime = event.time;
+        }
     }
+    
+    ponyEventIdx = 0;
+    currentTime = 0;
+    startTime = 0;
     
     _graph = [[ActorGraph alloc] initWithEvents:_ponyEvents];
     
@@ -63,6 +71,21 @@
     glPushMatrix();
     glLoadIdentity();
     
+    glOrtho(-1, 1, -1, 1, -1, 1);
+    glClearColor (248.0f / 255.0f, 253.0f / 255.0f, 255.0f / 255.0f, 1.0f);
+    glClear(GL_COLOR_BUFFER_BIT);
+    
+    // Render the timeline in the background
+    float timeOffset = (currentTime / (endTime - startTime)) * 2.0f;
+    glColor3f (248.0f / 285.0f, 253.0f / 285.0f, 255.0f / 285.0f);
+    glBegin(GL_QUADS);
+    glVertex3f(-1.0f, -1.0f, 0.0f);
+    glVertex3f(-1.0f+timeOffset, -1.0f, 0.0f);
+    glVertex3f(-1.0f+timeOffset, -0.95f, 0.0f);
+    glVertex3f(-1.0f, -0.95f, 0.0f);
+    glEnd();
+    
+    
     if (aspect > 1.0) {
         glOrtho(-1 * aspect, 1 * aspect, -1, 1, -1, 1);
     } else {
@@ -73,8 +96,8 @@
     glPushMatrix();
     glLoadIdentity();
     
-    glClearColor (248.0f / 255.0f, 253.0f / 255.0f, 255.0f / 253.0f, 1.0f);
-    glClear(GL_COLOR_BUFFER_BIT);
+    
+    
     
     [_graph render];
     
@@ -84,6 +107,22 @@
 
 - (void) Update {
     
+    currentTime += kMillisecondsPerFrame;
+    if (currentTime > endTime) {
+        currentTime = endTime;
+    }
+    
+    // we want to execute any events in the time period >= currentTime but < currentTime + kMillisecondsPerFrame
+    while(true) {
+        PonyEvent * event = [_ponyEvents objectAtIndex:ponyEventIdx];
+        if (event.time >= currentTime) {
+            break;
+        }
+        
+        [_graph executeEvent:event];
+        
+        ponyEventIdx += 1;
+    }
 }
 
 - (void) Reshape {

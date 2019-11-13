@@ -9,6 +9,8 @@
 
 #import <Cocoa/Cocoa.h>
 
+#define kMillisecondsPerFrame 16.0f
+
 @protocol OpenGLViewDelegate
 - (void) Init;
 - (void) Destruct;

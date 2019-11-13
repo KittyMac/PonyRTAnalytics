@@ -41,6 +41,51 @@
     }
 }
 
+- (void) executeEvent:(PonyEvent *)event {
+    
+    Actor * actor = [self actorWithTag:event.actorTag];
+    
+    switch(event.eventID) {
+        case ANALYTIC_MUTE:
+            actor.muted = true;
+            break;
+        case ANALYTIC_NOT_MUTE:
+            actor.muted = false;
+            break;
+        case ANALYTIC_OVERLOADED:
+            actor.overloaded = true;
+            break;
+        case ANALYTIC_NOT_OVERLOADED:
+            actor.overloaded = false;
+            break;
+        case ANALYTIC_UNDERPRESSURE:
+            actor.underpressure = true;
+            break;
+        case ANALYTIC_NOT_UNDERPRESSURE:
+            actor.underpressure = false;
+            break;
+        case ANALYTIC_RUN_START:
+            actor.running = true;
+            break;
+        case ANALYTIC_RUN_END:
+            actor.running = false;
+            break;
+    }
+}
+
+/*
+ ANALYTIC_MUTE = 1,
+ ANALYTIC_NOT_MUTE = 2,
+ ANALYTIC_OVERLOADED = 3,
+ ANALYTIC_NOT_OVERLOADED = 4,
+ ANALYTIC_UNDERPRESSURE = 5,
+ ANALYTIC_NOT_UNDERPRESSURE = 6,
+ ANALYTIC_RUN_START = 7,
+ ANALYTIC_RUN_END = 8,
+ ANALYTIC_PRIORITY_RESCHEDULE = 9,
+ ANALYTIC_MESSAGE_SENT = 10,
+*/
+
 - (void) layoutCircle {
     // sort ascending order by tag, then layout in a simple equidistant circle
     NSArray * keyArray = [_actors allKeys];
@@ -73,7 +118,7 @@
         
         
         // if we're muted, we draw an angry red outline
-        if (actor.overloaded) {
+        if (actor.muted) {
             glColor3ub(255, 48, 0);
             glVertex3f(x-oradius, y-oradius, 0.0f);
             glVertex3f(x+oradius, y-oradius, 0.0f);
@@ -81,11 +126,15 @@
         }
         
         // if we're overloaded, we draw orange
-        if (actor.muted) {
+        if (actor.overloaded) {
             glColor3ub(255, 126, 0);
+        } else if(actor.underpressure) {
+            glColor3ub(255, 220, 0);
+        } else if(actor.running) {
+            glColor3ub(164, 164, 255);
         } else {
-            // if we're normal, we draw grey
-            glColor3ub(220, 220, 220);
+            // if we're idle, we draw grey
+            glColor3ub(164, 164, 164);
         }
         
         glVertex3f(x-radius, y-radius, 0.0f);

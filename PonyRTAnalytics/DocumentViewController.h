@@ -15,6 +15,11 @@
 @interface DocumentViewController : NSViewController <OpenGLViewDelegate>
 {
     IBOutlet OpenGLView * glview;
+    
+    unsigned long ponyEventIdx;
+    float currentTime;
+    float startTime;
+    float endTime;
 }
 
 @property (nonatomic, retain) NSMutableArray * ponyEvents;

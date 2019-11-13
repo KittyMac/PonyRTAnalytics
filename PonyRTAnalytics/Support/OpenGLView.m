@@ -12,8 +12,6 @@
 #import "NSTimerAdditions.h"
 
 
-#define kMillisecondsPerFrame 16.0f
-
 @implementation OpenGLView
 
 - (unsigned long) getNumberOfUpdatesToPerform

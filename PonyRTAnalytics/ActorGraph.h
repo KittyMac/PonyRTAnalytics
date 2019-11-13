@@ -9,6 +9,8 @@
 
 #import <Cocoa/Cocoa.h>
 
+@class PonyEvent;
+
 @interface ActorGraph : NSObject
 {
     
@@ -18,8 +20,8 @@
 
 - (id) initWithEvents:(NSArray *) ponyEvents;
 
+- (void) executeEvent:(PonyEvent *)event;
 - (void) layoutCircle;
-
 - (void) render;
 
 @end
