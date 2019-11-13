@@ -20,9 +20,11 @@
     GLuint texture_node0;
     GLuint texture_node1;
     GLuint texture_node2;
+    
+    void ** actorLUT;
 }
 
-@property (nonatomic, retain) NSMutableDictionary * actors;
+@property (nonatomic, retain) NSMutableArray * actors;
 
 - (id) initWithEvents:(NSArray *) ponyEvents;
 

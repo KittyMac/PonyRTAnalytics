@@ -20,6 +20,8 @@
     float currentTime;
     float startTime;
     float endTime;
+    
+    bool isDraggingTimeline;
 }
 
 @property (nonatomic, retain) NSMutableArray * ponyEvents;

@@ -107,9 +107,12 @@
 
 - (void) Update {
     
-    currentTime += kMillisecondsPerFrame;
-    if (currentTime > endTime) {
-        currentTime = endTime;
+    // dragging on the window should allow the user to set the current time
+    if (isDraggingTimeline == false) {
+        currentTime += kMillisecondsPerFrame;
+        if (currentTime > endTime) {
+            currentTime = endTime;
+        }
     }
     
     // we want to execute any events in the time period >= currentTime but < currentTime + kMillisecondsPerFrame
@@ -123,6 +126,8 @@
         
         ponyEventIdx += 1;
     }
+    
+    
 }
 
 - (void) Reshape {
@@ -130,7 +135,20 @@
 }
 
 - (void) Event:(NSEvent *)event {
-    
+    if ([event type] == NSEventTypeLeftMouseDown || [event type] == NSEventTypeLeftMouseDragged) {
+        isDraggingTimeline = true;
+        
+        NSPoint p = [event locationInWindow];
+        float windowWidth = [glview bounds].size.width;
+        float normalizedTime = p.x / windowWidth;
+        
+        currentTime = startTime + ((endTime - startTime) * normalizedTime);
+        ponyEventIdx = 0;
+        
+    }
+    if ([event type] == NSEventTypeLeftMouseUp) {
+        isDraggingTimeline = false;
+    }
 }
 
 @end

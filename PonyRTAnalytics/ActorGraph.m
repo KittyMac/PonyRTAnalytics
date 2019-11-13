@@ -19,8 +19,20 @@
 - (id) initWithEvents:(NSArray *) ponyEvents {
     self = [super init];
     if (self) {
-        _actors = [[NSMutableDictionary alloc] init];
+        // run through all of the events first and find the largest actor tag
+        unsigned long maxActorTag = 0;
+        for (PonyEvent * evt in ponyEvents) {
+            if (evt.actorTag > maxActorTag) {
+                maxActorTag = evt.actorTag;
+            }
+        }
         
+        // allocate an array large enough to hold all of them.  Now, I know this is wasteful of memory,
+        // but the lookup speeds are as fast as they come and using a hashmap is too slow.
+        actorLUT = calloc(sizeof(Actor *) * (maxActorTag + 1), 1);
+        _actors = [NSMutableArray array];
+        
+        // go back through an register actors
         for (PonyEvent * evt in ponyEvents) {
             [self registerActor:evt.actorTag];
         }
@@ -39,21 +51,18 @@
     return self;
 }
 
-- (Actor *) actorWithTag:(unsigned long) actorTag {
-    return [_actors objectForKey:[NSNumber numberWithUnsignedInteger:actorTag]];
-}
-
 - (void) registerActor:(unsigned long) actorTag {
-    Actor * actor = [self actorWithTag:actorTag];
+    Actor * actor = (__bridge Actor *)actorLUT[actorTag];
     if (actor == NULL) {
-        actor = [[Actor alloc] initWithTag:actorTag];
-        [_actors setObject:actor forKey:[NSNumber numberWithUnsignedInteger:actorTag]];
+        Actor * actor = [[Actor alloc] initWithTag:actorTag];
+        [_actors addObject:actor];
+        actorLUT[actorTag] = (__bridge void *)actor;
     }
 }
 
 - (void) executeEvent:(PonyEvent *)event {
     
-    Actor * actor = [self actorWithTag:event.actorTag];
+    Actor * actor = (__bridge Actor *)(actorLUT[event.actorTag]);
     
     switch(event.eventID) {
         case ANALYTIC_MUTE:
@@ -98,16 +107,13 @@
 
 - (void) layoutCircle {
     // sort ascending order by tag, then layout in a simple equidistant circle
-    NSArray * keyArray = [_actors allKeys];
-    [keyArray sortedArrayUsingSelector:@selector(compare:)];
+    [_actors sortedArrayUsingSelector:@selector(compare:)];
     
     float deg = 0;
-    float delta = (M_PI * 2) / [keyArray count];
+    float delta = (M_PI * 2) / [_actors count];
     float base[2] = {0.0f, 0.8f};
     float point[2];
-    for (NSNumber * tag in keyArray) {
-        Actor * actor = [_actors objectForKey:tag];
-        
+    for (Actor * actor in _actors) {
         VEC_ROT_Z_2(point, base, deg);
         actor.x = point[0];
         actor.y = point[1];
@@ -129,14 +135,14 @@
     
     glBegin(GL_QUADS);
     glColor3ub(255, 255, 255);
-    for (Actor * actor in [_actors allValues]) {
+    for (Actor * actor in _actors) {
         [actor renderQuad:size];
     }
     glEnd();
     
     glBindTexture(GL_TEXTURE_2D, texture_node1);
     glBegin(GL_QUADS);
-    for (Actor * actor in [_actors allValues]) {
+    for (Actor * actor in _actors) {
         // if we're overloaded, we draw orange
         if (actor.overloaded) {
             glColor3ub(255, 126, 0);
@@ -154,9 +160,11 @@
     
     glBindTexture(GL_TEXTURE_2D, texture_node2);
     glBegin(GL_QUADS);
-    for (Actor * actor in [_actors allValues]) {
+    for (Actor * actor in _actors) {
         if (actor.muted) {
             glColor3ub(255, 48, 0);
+        } else {
+            glColor3ub(255, 255, 255);
         }
         [actor renderQuad:size];
     }
