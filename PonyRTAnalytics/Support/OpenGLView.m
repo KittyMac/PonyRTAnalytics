@@ -11,6 +11,8 @@
 #import <OpenGL/gl.h>
 #import "NSTimerAdditions.h"
 
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
 
 @implementation OpenGLView
 
@@ -388,3 +390,6 @@
 
 
 @end
+
+
+#pragma GCC diagnostic pop

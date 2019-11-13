@@ -13,7 +13,13 @@
 
 @interface ActorGraph : NSObject
 {
+    NSImage * node0;
+    NSImage * node1;
+    NSImage * node2;
     
+    GLuint texture_node0;
+    GLuint texture_node1;
+    GLuint texture_node2;
 }
 
 @property (nonatomic, retain) NSMutableDictionary * actors;

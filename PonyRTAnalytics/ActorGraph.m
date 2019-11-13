@@ -12,6 +12,7 @@
 #import "PonyEvent.h"
 #import <OpenGL/gl.h>
 #import "vvector.h"
+#import "NSImageAdditions.h"
 
 @implementation ActorGraph
 
@@ -25,6 +26,15 @@
         }
         
         [self layoutCircle];
+        
+        node0 = [NSImage imageNamed:@"node0"];
+        node1 = [NSImage imageNamed:@"node1"];
+        node2 = [NSImage imageNamed:@"node2"];
+        
+        texture_node0 = [node0 texture];
+        texture_node1 = [node1 texture];
+        texture_node2 = [node2 texture];
+        
     }
     return self;
 }
@@ -107,24 +117,26 @@
 }
 
 - (void) render {
-    float radius = 0.05f;
-    float oradius = 0.07f;
+    float size = 0.05f;
     
-    glBegin(GL_TRIANGLES);
+    glDisable(GL_LIGHTING);
     
+    glEnable(GL_TEXTURE_2D);
+    glBindTexture(GL_TEXTURE_2D, texture_node0);
+    
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
+    
+    glBegin(GL_QUADS);
+    glColor3ub(255, 255, 255);
     for (Actor * actor in [_actors allValues]) {
-        float x = actor.x;
-        float y = actor.y;
-        
-        
-        // if we're muted, we draw an angry red outline
-        if (actor.muted) {
-            glColor3ub(255, 48, 0);
-            glVertex3f(x-oradius, y-oradius, 0.0f);
-            glVertex3f(x+oradius, y-oradius, 0.0f);
-            glVertex3f(x+0.0, y+oradius*0.8f, 0.0f);
-        }
-        
+        [actor renderQuad:size];
+    }
+    glEnd();
+    
+    glBindTexture(GL_TEXTURE_2D, texture_node1);
+    glBegin(GL_QUADS);
+    for (Actor * actor in [_actors allValues]) {
         // if we're overloaded, we draw orange
         if (actor.overloaded) {
             glColor3ub(255, 126, 0);
@@ -136,13 +148,28 @@
             // if we're idle, we draw grey
             glColor3ub(164, 164, 164);
         }
-        
-        glVertex3f(x-radius, y-radius, 0.0f);
-        glVertex3f(x+radius, y-radius, 0.0f);
-        glVertex3f(x+0.0, y+radius*0.8f, 0.0f);
+        [actor renderQuad:size];
     }
-    
     glEnd();
+    
+    glBindTexture(GL_TEXTURE_2D, texture_node2);
+    glBegin(GL_QUADS);
+    for (Actor * actor in [_actors allValues]) {
+        if (actor.muted) {
+            glColor3ub(255, 48, 0);
+        }
+        [actor renderQuad:size];
+    }
+    glEnd();
+    
+    
+    
+    glBindTexture(GL_TEXTURE_2D, 0);
+    
+    glDisable(GL_TEXTURE_2D);
+    
+    glDisable(GL_BLEND);
+    
 }
 
 @end

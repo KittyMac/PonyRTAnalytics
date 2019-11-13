@@ -29,5 +29,6 @@
 
 
 - (id) initWithTag:(unsigned long) actorTag;
+- (void) renderQuad:(float)size;
 
 @end

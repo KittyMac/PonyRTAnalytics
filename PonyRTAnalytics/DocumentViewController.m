@@ -49,12 +49,12 @@
     currentTime = 0;
     startTime = 0;
     
-    _graph = [[ActorGraph alloc] initWithEvents:_ponyEvents];
-    
     NSLog(@"Loaded %lu ponyrt events\n", (unsigned long)[_ponyEvents count]);
 }
 
 - (void) Init {
+    
+    _graph = [[ActorGraph alloc] initWithEvents:_ponyEvents];
     
 }
 

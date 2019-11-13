@@ -20,6 +20,10 @@
 		466D0309237BA1F8003D9196 /* ActorGraph.m in Sources */ = {isa = PBXBuildFile; fileRef = 466D0308237BA1F8003D9196 /* ActorGraph.m */; };
 		466D030C237BA24C003D9196 /* PonyEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 466D030A237BA24B003D9196 /* PonyEvent.m */; };
 		466D030F237BAA18003D9196 /* Actor.m in Sources */ = {isa = PBXBuildFile; fileRef = 466D030E237BAA18003D9196 /* Actor.m */; };
+		46C448DA237C447A0067D490 /* NSImageAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 46C448D8237C44790067D490 /* NSImageAdditions.m */; };
+		46C448E1237C47240067D490 /* node0.png in Resources */ = {isa = PBXBuildFile; fileRef = 46C448DE237C47240067D490 /* node0.png */; };
+		46C448E2237C47240067D490 /* node1.png in Resources */ = {isa = PBXBuildFile; fileRef = 46C448DF237C47240067D490 /* node1.png */; };
+		46C448E3237C47240067D490 /* node2.png in Resources */ = {isa = PBXBuildFile; fileRef = 46C448E0237C47240067D490 /* node2.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -49,6 +53,11 @@
 		466D030B237BA24C003D9196 /* PonyEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PonyEvent.h; sourceTree = "<group>"; };
 		466D030D237BAA18003D9196 /* Actor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Actor.h; sourceTree = "<group>"; };
 		466D030E237BAA18003D9196 /* Actor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Actor.m; sourceTree = "<group>"; };
+		46C448D8237C44790067D490 /* NSImageAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSImageAdditions.m; sourceTree = "<group>"; };
+		46C448D9237C44790067D490 /* NSImageAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSImageAdditions.h; sourceTree = "<group>"; };
+		46C448DE237C47240067D490 /* node0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = node0.png; sourceTree = "<group>"; };
+		46C448DF237C47240067D490 /* node1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = node1.png; sourceTree = "<group>"; };
+		46C448E0237C47240067D490 /* node2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = node2.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +90,7 @@
 		461333BE237B2C4C008A87A1 /* PonyRTAnalytics */ = {
 			isa = PBXGroup;
 			children = (
+				46C448DD237C47240067D490 /* Assets */,
 				466D0305237BA17F003D9196 /* Resources */,
 				466D0304237BA166003D9196 /* Support */,
 				466D0307237BA1F8003D9196 /* ActorGraph.h */,
@@ -112,6 +122,8 @@
 				461333C0237B2C4C008A87A1 /* AppDelegate.m */,
 				4641E572237B334300D98951 /* NSTimerAdditions.h */,
 				4641E573237B334300D98951 /* NSTimerAdditions.m */,
+				46C448D9237C44790067D490 /* NSImageAdditions.h */,
+				46C448D8237C44790067D490 /* NSImageAdditions.m */,
 			);
 			path = Support;
 			sourceTree = "<group>";
@@ -125,6 +137,16 @@
 			);
 			path = Resources;
 			sourceTree = "<group>";
+		};
+		46C448DD237C47240067D490 /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				46C448DE237C47240067D490 /* node0.png */,
+				46C448DF237C47240067D490 /* node1.png */,
+				46C448E0237C47240067D490 /* node2.png */,
+			);
+			path = Assets;
+			sourceTree = SOURCE_ROOT;
 		};
 /* End PBXGroup section */
 
@@ -183,8 +205,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				46C448E3237C47240067D490 /* node2.png in Resources */,
 				461333C9237B2C4D008A87A1 /* Assets.xcassets in Resources */,
 				4641E57C237B46BC00D98951 /* Document.storyboard in Resources */,
+				46C448E2237C47240067D490 /* node1.png in Resources */,
+				46C448E1237C47240067D490 /* node0.png in Resources */,
 				461333CC237B2C4D008A87A1 /* MainMenu.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -206,6 +231,7 @@
 				4641E574237B334300D98951 /* NSTimerAdditions.m in Sources */,
 				461333C1237B2C4C008A87A1 /* AppDelegate.m in Sources */,
 				4641E571237B323B00D98951 /* OpenGLView.m in Sources */,
+				46C448DA237C447A0067D490 /* NSImageAdditions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

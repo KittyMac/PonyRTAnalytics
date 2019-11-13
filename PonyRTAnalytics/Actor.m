@@ -28,4 +28,15 @@
     return (long)other.tag - (long)_tag;
 }
 
+- (void) renderQuad:(float)size {
+    glTexCoord2f(0.0f, 0.0f);
+    glVertex3f(_x-size, _y-size, 0.0f);
+    glTexCoord2f(1.0f, 0.0f);
+    glVertex3f(_x+size, _y-size, 0.0f);
+    glTexCoord2f(1.0f, 1.0f);
+    glVertex3f(_x+size, _y+size, 0.0f);
+    glTexCoord2f(0.0f, 1.0f);
+    glVertex3f(_x-size, _y+size, 0.0f);
+}
+
 @end
