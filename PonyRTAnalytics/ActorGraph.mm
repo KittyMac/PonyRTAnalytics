@@ -77,7 +77,8 @@
                                    1);
         
         //[self layoutCircle];
-        [self layoutRandom];
+        //[self layoutRandom];
+        [self layoutRandomX];
         
         
         // run through all actors and add nodes
@@ -148,6 +149,7 @@
     actor.numMessages = event.actorNumMessages;
     actor.batchSize = event.actorBatchSize;
     actor.priority = event.actorPriority;
+    actor.heapSize = event.actorHeapSize;
     
     switch(event.eventID) {
         case ANALYTIC_MUTE:
@@ -177,26 +179,22 @@
     }
 }
 
-/*
- ANALYTIC_MUTE = 1,
- ANALYTIC_NOT_MUTE = 2,
- ANALYTIC_OVERLOADED = 3,
- ANALYTIC_NOT_OVERLOADED = 4,
- ANALYTIC_UNDERPRESSURE = 5,
- ANALYTIC_NOT_UNDERPRESSURE = 6,
- ANALYTIC_RUN_START = 7,
- ANALYTIC_RUN_END = 8,
- ANALYTIC_PRIORITY_RESCHEDULE = 9,
- ANALYTIC_MESSAGE_SENT = 10,
- ANALYTIC_APP_MESSAGE_SENT = 11
-*/
-
 - (void) layoutRandom {
     for (Actor * actor in _actors) {
         float fX = ((float)(arc4random() % 1000)) / 1000.0f;
         float fY = ((float)(arc4random() % 1000)) / 1000.0f;
         actor.x = -1.0f + 2.0f * fX;
         actor.y = -1.0f + 2.0f * fY;
+    }
+}
+
+- (void) layoutRandomX {
+    // try and force the graph to prefer wide graphs over tall graphs
+    for (Actor * actor in _actors) {
+        float fX = ((float)(arc4random() % 1000)) / 1000.0f;
+        float fY = ((float)(arc4random() % 1000)) / 1000.0f;
+        actor.x = -1.0f + 2.0f * fX;
+        actor.y = -0.1f + 0.2f * fY;
     }
 }
 

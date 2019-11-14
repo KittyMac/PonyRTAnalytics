@@ -35,6 +35,7 @@ enum {
 @property (nonatomic, assign) unsigned long actorNumMessages;
 @property (nonatomic, assign) unsigned long actorBatchSize;
 @property (nonatomic, assign) unsigned long actorPriority;
+@property (nonatomic, assign) unsigned long actorHeapSize;
 
 @property (nonatomic, assign) unsigned long toActorTag;
 @property (nonatomic, assign) unsigned long toActorNumberOfMessages;

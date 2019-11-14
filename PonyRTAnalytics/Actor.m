@@ -63,24 +63,25 @@
     }
     
     
-    if (lastMsgValue != _numMessages) {
+    if (lastMsgValue1 != _numMessages || lastMsgValue2 != _heapSize) {
         if (msgTexture != 0) {
             glDeleteTextures(1, &msgTexture);
             msgTexture = 0;
         }
         
-        lastMsgValue = _numMessages;
-        msgTexture = createStringTexture([NSString stringWithFormat:@"%lu of %lu", lastMsgValue, _batchSize], &msgSize);
+        lastMsgValue1 = _numMessages;
+        lastMsgValue2 = _heapSize;
+        msgTexture = createStringTexture([NSString stringWithFormat:@"%lu of %lu\n%lu MB", _numMessages, _batchSize, (_heapSize / (1024 * 1024))], &msgSize);
         
         glEnable(GL_TEXTURE_2D);
     }
     
     if (msgTexture != 0) {
-        float h = size * 0.4f;
+        float h = size * 1.0f;
         float w = msgSize.width * (h / msgSize.height);
-        float yOffset = -(h * 1.5f);
+        float yOffset = -(h * 2.0f);
         
-        if (lastMsgValue > _batchSize) {
+        if (_numMessages > _batchSize) {
             glColor3f(1.0f, 0.0f, 0.0f);
         } else {
             glColor3f(1.0f, 1.0f, 1.0f);

@@ -49,21 +49,25 @@ GLuint createStringTexture(NSString * astring, NSSize * size)
     
     // Create a dictionary to define the styles of our drawn text...
     // We're going to make an outline font with black shadow...
-    NSMutableDictionary * bold12White =
-    [[NSMutableDictionary alloc]init];
-    NSMutableDictionary * bold12Black =
-    [[NSMutableDictionary alloc]init];
+    NSMutableDictionary * bold12White = [[NSMutableDictionary alloc]init];
+    NSMutableDictionary * bold12Black = [[NSMutableDictionary alloc]init];
     NSShadow * shadow = [[NSShadow alloc] init];
+    NSMutableParagraphStyle * style = [[NSMutableParagraphStyle alloc] init];
+    style.alignment = NSTextAlignmentCenter;
     
     // Bold white font
     [bold12White setObject: [NSFont fontWithName: @"Helvetica-Bold"
                                             size: 32] forKey: NSFontAttributeName];
+    [bold12White setObject:style
+                    forKey:NSParagraphStyleAttributeName];
     [bold12White setObject: [NSColor whiteColor]
                     forKey:NSForegroundColorAttributeName];
     
     // Bold Black outline
     [bold12Black setObject: [NSFont fontWithName: @"Helvetica-Bold"
                                             size: 32] forKey: NSFontAttributeName];
+    [bold12Black setObject:style
+                    forKey:NSParagraphStyleAttributeName];
     [bold12Black setObject: [NSColor blackColor]
                     forKey: NSForegroundColorAttributeName];
     [bold12Black setObject: [NSNumber numberWithFloat:-3.0]

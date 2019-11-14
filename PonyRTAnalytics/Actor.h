@@ -16,13 +16,15 @@
     
     GLuint msgTexture;
     NSSize msgSize;
-    unsigned long lastMsgValue;
+    unsigned long lastMsgValue1;
+    unsigned long lastMsgValue2;
 }
 
 @property (nonatomic, assign) unsigned long tag;
 @property (nonatomic, assign) unsigned long numMessages;
 @property (nonatomic, assign) unsigned long batchSize;
 @property (nonatomic, assign) unsigned long priority;
+@property (nonatomic, assign) unsigned long heapSize;
 
 @property (nonatomic, assign) bool running;
 @property (nonatomic, assign) bool muted;
