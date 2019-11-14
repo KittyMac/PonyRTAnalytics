@@ -561,27 +561,33 @@ NSRect NSRectInsideRect(NSRect a, NSRect b)
 }
 
 
++ (NSImage *) loadImageNamedAsPowerOf2:(NSString *)image_name
+                 WithOriginalSize:(CGSize *)size
+{
+    NSImage * img = NULL;
+    if(!img)
+    {
+        // If not, try and treat this like a path to an image file...
+        img = [[NSImage alloc] initWithContentsOfFile:image_name];
+        
+        if(!img)
+        {
+            // If not, try and get the icon associated with the file...
+            img = [[NSWorkspace sharedWorkspace] iconForFile:image_name];
+        }
+    }
+    
+    return [NSImage loadImageAsPowerOf2:img
+                       WithOriginalSize:NULL];
+}
 
-+ (NSImage *) loadImageAsPowerOf2:(NSString *)image_name
++ (NSImage *) loadImageAsPowerOf2:(NSImage *)img
 				 WithOriginalSize:(CGSize *)size
 {
 	// Have we already been loaded or are we in the normal
 	// resource tree?
-	NSImage * img = NULL;
 	NSRect orig_bounds;
 	int i;
-	
-	if(!img)
-	{
-		// If not, try and treat this like a path to an image file...
-		img = [[NSImage alloc] initWithContentsOfFile:image_name];
-		
-		if(!img)
-		{
-			// If not, try and get the icon associated with the file...
-			img = [[NSWorkspace sharedWorkspace] iconForFile:image_name];
-		}
-	}
 	
 	NSImageRep * rep = [[img representations] objectAtIndex:0]; 
 	[img setScalesWhenResized:YES]; 
@@ -627,7 +633,7 @@ NSRect NSRectInsideRect(NSRect a, NSRect b)
 
 + (NSImage *) loadImageAsPowerOf2:(NSString *)image_name
 {
-	return [self loadImageAsPowerOf2:image_name
+	return [self loadImageNamedAsPowerOf2:image_name
 					WithOriginalSize:NULL];
 			
 }

@@ -11,7 +11,12 @@
 
 @interface Actor : NSObject
 {
+    GLuint tagTexture;
+    NSSize tagSize;
     
+    GLuint msgTexture;
+    NSSize msgSize;
+    unsigned long lastMsgValue;
 }
 
 @property (nonatomic, assign) unsigned long tag;
@@ -29,6 +34,8 @@
 
 
 - (id) initWithTag:(unsigned long) actorTag;
+- (void) reloadLabels;
+- (void) renderLabels:(float)size;
 - (void) renderQuad:(float)size;
 
 @end

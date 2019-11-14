@@ -49,8 +49,11 @@ extern NSRect NSRectInsideRect(NSRect a, NSRect b);
 				resized:(NSSize) size;
 
 + (NSImage *) loadImageAsPowerOf2:(NSString *)image_name;
-+ (NSImage *) loadImageAsPowerOf2:(NSString *)image_name
-				 WithOriginalSize:(CGSize *)size;
++ (NSImage *) loadImageAsPowerOf2:(NSImage *)img
+                 WithOriginalSize:(CGSize *)size;
++ (NSImage *) loadImageNamedAsPowerOf2:(NSString *)image_name
+                      WithOriginalSize:(CGSize *)size;
+
 
 + (NSImage *) loadImage:(NSString *)image_name
 	   WithOriginalSize:(CGSize *)size;

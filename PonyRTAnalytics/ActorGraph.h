@@ -26,6 +26,11 @@
 
 @property (nonatomic, retain) NSMutableArray * actors;
 
+@property (nonatomic, assign) float minX;
+@property (nonatomic, assign) float maxX;
+@property (nonatomic, assign) float minY;
+@property (nonatomic, assign) float maxY;
+
 - (id) initWithEvents:(NSArray *) ponyEvents;
 
 - (void) executeEvent:(PonyEvent *)event;

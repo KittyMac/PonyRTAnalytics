@@ -17,9 +17,14 @@
 		4641E577237B3A4800D98951 /* DocumentWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4641E575237B3A4800D98951 /* DocumentWindowController.m */; };
 		4641E57A237B454900D98951 /* DocumentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4641E578237B454900D98951 /* DocumentViewController.m */; };
 		4641E57C237B46BC00D98951 /* Document.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4641E57B237B46BC00D98951 /* Document.storyboard */; };
-		466D0309237BA1F8003D9196 /* ActorGraph.m in Sources */ = {isa = PBXBuildFile; fileRef = 466D0308237BA1F8003D9196 /* ActorGraph.m */; };
+		46482679237C7F7400A28324 /* node.cc in Sources */ = {isa = PBXBuildFile; fileRef = 46482675237C7F7400A28324 /* node.cc */; };
+		4648267A237C7F7400A28324 /* nodes.cc in Sources */ = {isa = PBXBuildFile; fileRef = 46482677237C7F7400A28324 /* nodes.cc */; };
+		4648267D237C7F9800A28324 /* physics.cc in Sources */ = {isa = PBXBuildFile; fileRef = 4648267C237C7F9800A28324 /* physics.cc */; };
+		466D0309237BA1F8003D9196 /* ActorGraph.mm in Sources */ = {isa = PBXBuildFile; fileRef = 466D0308237BA1F8003D9196 /* ActorGraph.mm */; };
 		466D030C237BA24C003D9196 /* PonyEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 466D030A237BA24B003D9196 /* PonyEvent.m */; };
 		466D030F237BAA18003D9196 /* Actor.m in Sources */ = {isa = PBXBuildFile; fileRef = 466D030E237BAA18003D9196 /* Actor.m */; };
+		46C38606237CFBED0052E7AC /* NSStringTexture.mm in Sources */ = {isa = PBXBuildFile; fileRef = 46C38605237CFBED0052E7AC /* NSStringTexture.mm */; };
+		46C3860C237D0FE50052E7AC /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46C3860B237D0FE50052E7AC /* GLUT.framework */; };
 		46C448DA237C447A0067D490 /* NSImageAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 46C448D8237C44790067D490 /* NSImageAdditions.m */; };
 		46C448E1237C47240067D490 /* node0.png in Resources */ = {isa = PBXBuildFile; fileRef = 46C448DE237C47240067D490 /* node0.png */; };
 		46C448E2237C47240067D490 /* node1.png in Resources */ = {isa = PBXBuildFile; fileRef = 46C448DF237C47240067D490 /* node1.png */; };
@@ -46,13 +51,22 @@
 		4641E578237B454900D98951 /* DocumentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DocumentViewController.m; sourceTree = "<group>"; };
 		4641E579237B454900D98951 /* DocumentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DocumentViewController.h; sourceTree = "<group>"; };
 		4641E57B237B46BC00D98951 /* Document.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Document.storyboard; sourceTree = "<group>"; };
+		46482675237C7F7400A28324 /* node.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = node.cc; sourceTree = "<group>"; };
+		46482676237C7F7400A28324 /* node.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = node.h; sourceTree = "<group>"; };
+		46482677237C7F7400A28324 /* nodes.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = nodes.cc; sourceTree = "<group>"; };
+		46482678237C7F7400A28324 /* nodes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = nodes.h; sourceTree = "<group>"; };
+		4648267B237C7F9800A28324 /* physics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = physics.h; sourceTree = "<group>"; };
+		4648267C237C7F9800A28324 /* physics.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = physics.cc; sourceTree = "<group>"; };
 		466D0306237BA1D5003D9196 /* vvector.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = vvector.h; sourceTree = "<group>"; };
 		466D0307237BA1F8003D9196 /* ActorGraph.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActorGraph.h; sourceTree = "<group>"; };
-		466D0308237BA1F8003D9196 /* ActorGraph.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActorGraph.m; sourceTree = "<group>"; };
+		466D0308237BA1F8003D9196 /* ActorGraph.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ActorGraph.mm; sourceTree = "<group>"; };
 		466D030A237BA24B003D9196 /* PonyEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PonyEvent.m; sourceTree = "<group>"; };
 		466D030B237BA24C003D9196 /* PonyEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PonyEvent.h; sourceTree = "<group>"; };
 		466D030D237BAA18003D9196 /* Actor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Actor.h; sourceTree = "<group>"; };
 		466D030E237BAA18003D9196 /* Actor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Actor.m; sourceTree = "<group>"; };
+		46C38604237CFBED0052E7AC /* NSStringTexture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSStringTexture.h; sourceTree = "<group>"; };
+		46C38605237CFBED0052E7AC /* NSStringTexture.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = NSStringTexture.mm; sourceTree = "<group>"; };
+		46C3860B237D0FE50052E7AC /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = System/Library/Frameworks/GLUT.framework; sourceTree = SDKROOT; };
 		46C448D8237C44790067D490 /* NSImageAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSImageAdditions.m; sourceTree = "<group>"; };
 		46C448D9237C44790067D490 /* NSImageAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSImageAdditions.h; sourceTree = "<group>"; };
 		46C448DE237C47240067D490 /* node0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = node0.png; sourceTree = "<group>"; };
@@ -65,6 +79,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				46C3860C237D0FE50052E7AC /* GLUT.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -76,6 +91,7 @@
 			children = (
 				461333BE237B2C4C008A87A1 /* PonyRTAnalytics */,
 				461333BD237B2C4C008A87A1 /* Products */,
+				46C3860A237D0FE50052E7AC /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -90,11 +106,12 @@
 		461333BE237B2C4C008A87A1 /* PonyRTAnalytics */ = {
 			isa = PBXGroup;
 			children = (
+				46482674237C7F7400A28324 /* NodeGraph */,
 				46C448DD237C47240067D490 /* Assets */,
 				466D0305237BA17F003D9196 /* Resources */,
 				466D0304237BA166003D9196 /* Support */,
 				466D0307237BA1F8003D9196 /* ActorGraph.h */,
-				466D0308237BA1F8003D9196 /* ActorGraph.m */,
+				466D0308237BA1F8003D9196 /* ActorGraph.mm */,
 				466D030D237BAA18003D9196 /* Actor.h */,
 				466D030E237BAA18003D9196 /* Actor.m */,
 				466D030B237BA24C003D9196 /* PonyEvent.h */,
@@ -111,6 +128,19 @@
 			path = PonyRTAnalytics;
 			sourceTree = "<group>";
 		};
+		46482674237C7F7400A28324 /* NodeGraph */ = {
+			isa = PBXGroup;
+			children = (
+				4648267C237C7F9800A28324 /* physics.cc */,
+				4648267B237C7F9800A28324 /* physics.h */,
+				46482675237C7F7400A28324 /* node.cc */,
+				46482676237C7F7400A28324 /* node.h */,
+				46482677237C7F7400A28324 /* nodes.cc */,
+				46482678237C7F7400A28324 /* nodes.h */,
+			);
+			path = NodeGraph;
+			sourceTree = "<group>";
+		};
 		466D0304237BA166003D9196 /* Support */ = {
 			isa = PBXGroup;
 			children = (
@@ -120,6 +150,8 @@
 				4641E570237B323B00D98951 /* OpenGLView.m */,
 				461333BF237B2C4C008A87A1 /* AppDelegate.h */,
 				461333C0237B2C4C008A87A1 /* AppDelegate.m */,
+				46C38604237CFBED0052E7AC /* NSStringTexture.h */,
+				46C38605237CFBED0052E7AC /* NSStringTexture.mm */,
 				4641E572237B334300D98951 /* NSTimerAdditions.h */,
 				4641E573237B334300D98951 /* NSTimerAdditions.m */,
 				46C448D9237C44790067D490 /* NSImageAdditions.h */,
@@ -136,6 +168,14 @@
 				461333CA237B2C4D008A87A1 /* MainMenu.xib */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		46C3860A237D0FE50052E7AC /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				46C3860B237D0FE50052E7AC /* GLUT.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		46C448DD237C47240067D490 /* Assets */ = {
@@ -223,13 +263,17 @@
 			files = (
 				461333C4237B2C4C008A87A1 /* Document.m in Sources */,
 				466D030F237BAA18003D9196 /* Actor.m in Sources */,
+				4648267A237C7F7400A28324 /* nodes.cc in Sources */,
 				4641E577237B3A4800D98951 /* DocumentWindowController.m in Sources */,
-				466D0309237BA1F8003D9196 /* ActorGraph.m in Sources */,
+				466D0309237BA1F8003D9196 /* ActorGraph.mm in Sources */,
 				466D030C237BA24C003D9196 /* PonyEvent.m in Sources */,
 				461333CF237B2C4D008A87A1 /* main.m in Sources */,
 				4641E57A237B454900D98951 /* DocumentViewController.m in Sources */,
 				4641E574237B334300D98951 /* NSTimerAdditions.m in Sources */,
 				461333C1237B2C4C008A87A1 /* AppDelegate.m in Sources */,
+				46C38606237CFBED0052E7AC /* NSStringTexture.mm in Sources */,
+				46482679237C7F7400A28324 /* node.cc in Sources */,
+				4648267D237C7F9800A28324 /* physics.cc in Sources */,
 				4641E571237B323B00D98951 /* OpenGLView.m in Sources */,
 				46C448DA237C447A0067D490 /* NSImageAdditions.m in Sources */,
 			);

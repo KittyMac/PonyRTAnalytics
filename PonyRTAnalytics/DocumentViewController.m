@@ -85,11 +85,21 @@
     glVertex3f(-1.0f, -0.95f, 0.0f);
     glEnd();
     
+    // find the extents of the graph and make sure we can see the whole thing...
+    float padding = 0.2f;
+    float minX = [_graph minX] - padding;
+    float maxX = [_graph maxX] + padding;
+    float minY = [_graph minY] - padding;
+    float maxY = [_graph maxY] + padding;
     
-    if (aspect > 1.0) {
-        glOrtho(-1 * aspect, 1 * aspect, -1, 1, -1, 1);
+    float graphAspect = (maxX - minX) / (maxY - minY);
+    
+    float combinedAspect = (aspect / graphAspect);
+    
+    if (combinedAspect > 1.0) {
+        glOrtho(minX * combinedAspect, maxX * combinedAspect, minY, maxY, -1, 1);
     } else {
-        glOrtho(-1, 1, -1 / aspect, 1 / aspect, -1, 1);
+        glOrtho(minX, maxX, minY / combinedAspect, maxY / combinedAspect, -1, 1);
     }
     
     glMatrixMode(GL_MODELVIEW);
