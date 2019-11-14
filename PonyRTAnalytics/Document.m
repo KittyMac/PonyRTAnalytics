@@ -44,6 +44,7 @@
 
 - (BOOL)readFromData:(NSData *)data ofType:(NSString *)typeName error:(NSError **)outError {
     if ([typeName isEqualToString:@"PonyRTAnalytics"]) {
+        NSLog(@"Loading pony event data...");
         NSString * contents = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
         csvLines = [contents componentsSeparatedByString:@"\n"];
     }

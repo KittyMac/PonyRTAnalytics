@@ -581,6 +581,42 @@ NSRect NSRectInsideRect(NSRect a, NSRect b)
                        WithOriginalSize:NULL];
 }
 
+
++ (NSImage *) loadImage:(NSImage *)img
+       IntoPowerOf2Size:(int)size
+{
+    // Have we already been loaded or are we in the normal
+    // resource tree?
+    NSRect orig_bounds;
+    
+    NSImageRep * rep = [[img representations] objectAtIndex:0];
+    [img setScalesWhenResized:YES];
+    [img setSize:NSMakeSize([rep pixelsWide], [rep pixelsHigh])];
+    
+    // Is the image too big?  If so, resize it...
+    orig_bounds = [img bounds];
+    
+    NSRect new_bounds = NSMakeRect(0,0,size,size);
+    NSImage * new_img = [[NSImage alloc] initWithSize:new_bounds.size];
+    
+    new_bounds.origin.x = 0.0;
+    new_bounds.origin.y = 0.0;
+    
+    [new_img lockFocus];
+    
+    [img drawInRect:new_bounds
+           fromRect:orig_bounds
+          operation:NSCompositeCopy
+           fraction:1.0];
+    
+    [new_img unlockFocus];
+    
+    //[new_img setName:image_name];
+    
+    return new_img;
+}
+
+
 + (NSImage *) loadImageAsPowerOf2:(NSImage *)img
 				 WithOriginalSize:(CGSize *)size
 {

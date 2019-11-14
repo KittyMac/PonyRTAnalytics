@@ -30,12 +30,11 @@
 }
 
 - (void) reloadLabels {
-    if (tagTexture != 0) {
-        glDeleteTextures(1, &tagTexture);
-        tagTexture = 0;
+    if (tagTexture == 0) {
+        tagTexture = createStringTexture([NSString stringWithFormat:@"%lu", _tag], &tagSize);
+    } else {
+        tagTexture = updateStringTexture(tagTexture, [NSString stringWithFormat:@"%lu", _tag], &tagSize);
     }
-    
-    tagTexture = createStringTexture([NSString stringWithFormat:@"%lu", _tag], &tagSize);
 }
 
 - (void) renderLabels:(float)size {
@@ -63,15 +62,19 @@
     }
     
     
-    if (lastMsgValue1 != _numMessages || lastMsgValue2 != _heapSize) {
-        if (msgTexture != 0) {
-            glDeleteTextures(1, &msgTexture);
-            msgTexture = 0;
-        }
+    unsigned long heapSizeInMB = (_heapSize / (1024 * 1024));
+    
+    if (msgTexture == 0 || lastMsgValue1 != _numMessages || lastMsgValue2 != heapSizeInMB) {
         
         lastMsgValue1 = _numMessages;
-        lastMsgValue2 = _heapSize;
-        msgTexture = createStringTexture([NSString stringWithFormat:@"%lu of %lu\n%lu MB", _numMessages, _batchSize, (_heapSize / (1024 * 1024))], &msgSize);
+        lastMsgValue2 = heapSizeInMB;
+        
+        NSString * msgString = [NSString stringWithFormat:@"%lu of %lu\n%lu MB", _numMessages, _batchSize, heapSizeInMB];
+        if (msgTexture == 0) {
+            msgTexture = createStringTexture(msgString, &msgSize);
+        } else {
+            msgTexture = updateStringTexture(msgTexture, msgString, &msgSize);
+        }
         
         glEnable(GL_TEXTURE_2D);
     }

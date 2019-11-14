@@ -8,6 +8,7 @@
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wdeprecated-declarations"
 
+static NSImage * imageForString(NSString * astring, NSSize * size);
 
 static int glutStringLength(void * font, const char * str)
 {
@@ -42,15 +43,27 @@ void drawStringGLUT(int x, int y, const char * str)
     }
 }
 
+GLuint updateStringTexture(GLuint oldTexture, NSString * astring, NSSize * size) {
+    NSImage * img = imageForString(astring, size);
+    return [img texture:GL_CLAMP_TO_EDGE
+            compression:0
+                replace:oldTexture];
+}
+
 GLuint createStringTexture(NSString * astring, NSSize * size)
 {
+    NSImage * img = imageForString(astring, size);
+    return [img texture];
+}
+
+NSImage * imageForString(NSString * astring, NSSize * size) {
     NSImage * temp_image;
     NSSize bounding_box;
     
     // Create a dictionary to define the styles of our drawn text...
     // We're going to make an outline font with black shadow...
-    NSMutableDictionary * bold12White = [[NSMutableDictionary alloc]init];
-    NSMutableDictionary * bold12Black = [[NSMutableDictionary alloc]init];
+    NSMutableDictionary * bold12White = [[NSMutableDictionary alloc] init];
+    NSMutableDictionary * bold12Black = [[NSMutableDictionary alloc] init];
     NSShadow * shadow = [[NSShadow alloc] init];
     NSMutableParagraphStyle * style = [[NSMutableParagraphStyle alloc] init];
     style.alignment = NSTextAlignmentCenter;
@@ -84,7 +97,7 @@ GLuint createStringTexture(NSString * astring, NSSize * size)
     
     // Create a new NSImage to render our text into
     temp_image = [[NSImage alloc]
-                   initWithSize:bounding_box];
+                  initWithSize:bounding_box];
     
     // Lock focus so we render to the image...
     [temp_image lockFocusFlipped:YES];
@@ -101,10 +114,8 @@ GLuint createStringTexture(NSString * astring, NSSize * size)
     
     *size = bounding_box;
     
-    temp_image = [NSImage loadImageAsPowerOf2:temp_image
-                             WithOriginalSize:NULL];
-        
-    return [temp_image texture];
+    return [NSImage loadImage:temp_image
+             IntoPowerOf2Size:64];
 }
 
 
