@@ -7,4 +7,4 @@ TAGS
 tags
 .deps/*
 
-large.ponyrt_analytics
+*.ponyrt_analytics
