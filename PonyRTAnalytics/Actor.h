@@ -38,6 +38,7 @@
 
 
 - (id) initWithUUID:(unsigned long) actorUUID;
+- (void) reset;
 - (void) renderLabels:(float)size;
 - (void) renderQuad:(float)size;
 

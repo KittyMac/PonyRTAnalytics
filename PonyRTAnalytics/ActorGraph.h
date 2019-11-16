@@ -35,9 +35,11 @@
 
 - (id) initWithEvents:(NSArray *) ponyEvents;
 
-- (void) executeEvent:(PonyEvent *)event;
+- (void) executeEvent:(PonyEvent *)event
+           isDragging:(BOOL)isDragging;
 - (void) layoutCircle;
 - (void) render;
 - (BOOL) update:(float)delta;
+- (void) reset;
 
 @end

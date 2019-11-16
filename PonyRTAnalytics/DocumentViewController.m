@@ -120,12 +120,16 @@
     // dragging on the window should allow the user to set the current time
     if (isDraggingTimeline == false) {
         currentTime += kMillisecondsPerFrame;
-        if (currentTime > endTime) {
-            currentTime = endTime;
+        if (currentTime > (endTime + 50)) {
+            currentTime = (endTime + 50);
         }
     }
     
     [_graph update:(1.0f / kMillisecondsPerFrame) * 0.5f];
+    
+    if (ponyEventIdx == 0) {
+        [_graph reset];
+    }
     
     // we want to execute any events in the time period >= currentTime but < currentTime + kMillisecondsPerFrame
     while(ponyEventIdx < [_ponyEvents count]) {
@@ -134,7 +138,8 @@
             break;
         }
         
-        [_graph executeEvent:event];
+        [_graph executeEvent:event
+                  isDragging:isDraggingTimeline];
         
         ponyEventIdx += 1;
     }
@@ -156,7 +161,6 @@
         
         currentTime = startTime + ((endTime - startTime) * normalizedTime);
         ponyEventIdx = 0;
-        
     }
     if ([event type] == NSEventTypeLeftMouseUp) {
         isDraggingTimeline = false;

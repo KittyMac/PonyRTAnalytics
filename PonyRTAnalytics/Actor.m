@@ -18,16 +18,21 @@
     self = [super init];
     if (self) {
         _uuid = actorUUID;
-        _tag = 0;
-        _numMessages = 0;
-        _batchSize = 0;
-        _priority = 0;
+        [self reset];
     }
     return self;
 }
 
 - (long) compare:(Actor *) other {
     return (long)other.uuid - (long)_uuid;
+}
+
+- (void) reset {
+    _tag = 0;
+    _numMessages = 0;
+    _batchSize = 0;
+    _priority = 0;
+    _heapSize = 0;
 }
 
 - (void) renderLabels:(float)size {

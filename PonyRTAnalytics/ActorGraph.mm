@@ -144,7 +144,8 @@
     }
 }
 
-- (void) executeEvent:(PonyEvent *)event {
+- (void) executeEvent:(PonyEvent *)event
+           isDragging:(BOOL)isDragging {
     
     Actor * actor = (__bridge Actor *)(actorLUT[event.actorUUID]);
     
@@ -153,6 +154,11 @@
     actor.batchSize = event.actorBatchSize;
     actor.priority = event.actorPriority;
     actor.heapSize = event.actorHeapSize;
+    
+    if (event.toActorUUID != 0) {
+        Actor * to = (__bridge Actor *)actorLUT[event.toActorUUID];
+        to.numMessages = event.toActorNumberOfMessages;
+    }
     
     switch(event.eventID) {
         case ANALYTIC_MUTE:
@@ -181,13 +187,16 @@
             break;
         case ANALYTIC_MESSAGE_SENT:
         case ANALYTIC_APP_MESSAGE_SENT:
-            Actor * from = (__bridge Actor *)actorLUT[event.actorUUID];
-            Actor * to = (__bridge Actor *)actorLUT[event.toActorUUID];
-            if (from != NULL && to != NULL && from != to) {
-                Message * msg = [[Message alloc] initWithEvent:event
-                                                     fromActor:from
-                                                       toActor:to];
-                [messages addObject:msg];
+            
+            if (isDragging == false) {
+                Actor * from = (__bridge Actor *)actorLUT[event.actorUUID];
+                Actor * to = (__bridge Actor *)actorLUT[event.toActorUUID];
+                if (from != NULL && to != NULL && from != to) {
+                    Message * msg = [[Message alloc] initWithEvent:event
+                                                         fromActor:from
+                                                           toActor:to];
+                    [messages addObject:msg];
+                }
             }
             break;
     }
@@ -226,6 +235,12 @@
         actor.y = point[1];
         
         deg += delta;
+    }
+}
+
+- (void) reset {
+    for(Actor * actor in _actors) {
+        [actor reset];
     }
 }
 
