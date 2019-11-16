@@ -10,6 +10,7 @@
 #import "ActorGraph.h"
 #import "Actor.h"
 #import "PonyEvent.h"
+#import "Message.h"
 #import <OpenGL/gl.h>
 #import "vvector.h"
 #import "NSImageAdditions.h"
@@ -55,7 +56,7 @@
             [self registerActor:evt.toActorUUID andTag:evt.actorTag];
         }
         
-        
+        messages = [[NSMutableArray alloc] init];
         
         node0 = [NSImage imageNamed:@"node0"];
         node1 = [NSImage imageNamed:@"node1"];
@@ -178,6 +179,17 @@
         case ANALYTIC_RUN_END:
             actor.running = false;
             break;
+        case ANALYTIC_MESSAGE_SENT:
+        case ANALYTIC_APP_MESSAGE_SENT:
+            Actor * from = (__bridge Actor *)actorLUT[event.actorUUID];
+            Actor * to = (__bridge Actor *)actorLUT[event.toActorUUID];
+            if (from != NULL && to != NULL && from != to) {
+                Message * msg = [[Message alloc] initWithEvent:event
+                                                     fromActor:from
+                                                       toActor:to];
+                [messages addObject:msg];
+            }
+            break;
     }
 }
 
@@ -217,6 +229,15 @@
     }
 }
 
+- (BOOL) update:(float)delta {
+    for (Message * message in [NSArray arrayWithArray:messages]) {
+        if( [message update:delta] == NO ){
+            [messages removeObject:message];
+        }
+    }
+    return true;
+}
+
 - (void) render {
     float size = 0.05f;
     float labelSize = 0.025f;
@@ -238,15 +259,18 @@
     }
     glEnd();
     
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
     
     glEnable(GL_TEXTURE_2D);
     glBindTexture(GL_TEXTURE_2D, texture_node0);
     
-    glEnable(GL_BLEND);
-    glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
-    
-    
+    // render messages
     glBegin(GL_QUADS);
+    for (Message * message in messages) {
+        [message renderQuad:size * 0.25f];
+    }
+
     glColor3ub(255, 255, 255);
     for (Actor * actor in _actors) {
         [actor renderQuad:size];

@@ -22,6 +22,8 @@
     GLuint texture_node2;
     
     void ** actorLUT;
+    
+    NSMutableArray * messages;
 }
 
 @property (nonatomic, retain) NSMutableArray * actors;
@@ -36,5 +38,6 @@
 - (void) executeEvent:(PonyEvent *)event;
 - (void) layoutCircle;
 - (void) render;
+- (BOOL) update:(float)delta;
 
 @end

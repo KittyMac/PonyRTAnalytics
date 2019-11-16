@@ -23,6 +23,7 @@
 		466D0309237BA1F8003D9196 /* ActorGraph.mm in Sources */ = {isa = PBXBuildFile; fileRef = 466D0308237BA1F8003D9196 /* ActorGraph.mm */; };
 		466D030C237BA24C003D9196 /* PonyEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 466D030A237BA24B003D9196 /* PonyEvent.m */; };
 		466D030F237BAA18003D9196 /* Actor.m in Sources */ = {isa = PBXBuildFile; fileRef = 466D030E237BAA18003D9196 /* Actor.m */; };
+		469BCB8E238086F400057F2B /* Message.mm in Sources */ = {isa = PBXBuildFile; fileRef = 469BCB8C238086F300057F2B /* Message.mm */; };
 		46C38606237CFBED0052E7AC /* NSStringTexture.mm in Sources */ = {isa = PBXBuildFile; fileRef = 46C38605237CFBED0052E7AC /* NSStringTexture.mm */; };
 		46C3860C237D0FE50052E7AC /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46C3860B237D0FE50052E7AC /* GLUT.framework */; };
 		46C448DA237C447A0067D490 /* NSImageAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 46C448D8237C44790067D490 /* NSImageAdditions.m */; };
@@ -64,6 +65,8 @@
 		466D030B237BA24C003D9196 /* PonyEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PonyEvent.h; sourceTree = "<group>"; };
 		466D030D237BAA18003D9196 /* Actor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Actor.h; sourceTree = "<group>"; };
 		466D030E237BAA18003D9196 /* Actor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Actor.m; sourceTree = "<group>"; };
+		469BCB8C238086F300057F2B /* Message.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Message.mm; sourceTree = "<group>"; };
+		469BCB8D238086F400057F2B /* Message.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Message.h; sourceTree = "<group>"; };
 		46C38604237CFBED0052E7AC /* NSStringTexture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSStringTexture.h; sourceTree = "<group>"; };
 		46C38605237CFBED0052E7AC /* NSStringTexture.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = NSStringTexture.mm; sourceTree = "<group>"; };
 		46C3860B237D0FE50052E7AC /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = System/Library/Frameworks/GLUT.framework; sourceTree = SDKROOT; };
@@ -114,6 +117,8 @@
 				466D0308237BA1F8003D9196 /* ActorGraph.mm */,
 				466D030D237BAA18003D9196 /* Actor.h */,
 				466D030E237BAA18003D9196 /* Actor.m */,
+				469BCB8D238086F400057F2B /* Message.h */,
+				469BCB8C238086F300057F2B /* Message.mm */,
 				466D030B237BA24C003D9196 /* PonyEvent.h */,
 				466D030A237BA24B003D9196 /* PonyEvent.m */,
 				461333C2237B2C4C008A87A1 /* Document.h */,
@@ -268,6 +273,7 @@
 				466D0309237BA1F8003D9196 /* ActorGraph.mm in Sources */,
 				466D030C237BA24C003D9196 /* PonyEvent.m in Sources */,
 				461333CF237B2C4D008A87A1 /* main.m in Sources */,
+				469BCB8E238086F400057F2B /* Message.mm in Sources */,
 				4641E57A237B454900D98951 /* DocumentViewController.m in Sources */,
 				4641E574237B334300D98951 /* NSTimerAdditions.m in Sources */,
 				461333C1237B2C4C008A87A1 /* AppDelegate.m in Sources */,

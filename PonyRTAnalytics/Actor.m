@@ -73,7 +73,7 @@
         lastMsgValue1 = _numMessages;
         lastMsgValue2 = heapSizeInMB;
         
-        NSString * msgString = [NSString stringWithFormat:@"%lu of %lu\n%ld MB / P %ld ", _numMessages, _batchSize, heapSizeInMB, _priority];
+        NSString * msgString = [NSString stringWithFormat:@"%lu of %lu\n%ld MB", _numMessages, _batchSize, heapSizeInMB];
         if (msgTexture == 0) {
             msgTexture = createStringTexture(msgString, &msgSize);
         } else {

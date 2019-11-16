@@ -125,8 +125,10 @@
         }
     }
     
+    [_graph update:(1.0f / kMillisecondsPerFrame) * 0.5f];
+    
     // we want to execute any events in the time period >= currentTime but < currentTime + kMillisecondsPerFrame
-    while(true) {
+    while(ponyEventIdx < [_ponyEvents count]) {
         PonyEvent * event = [_ponyEvents objectAtIndex:ponyEventIdx];
         if (event.time >= currentTime) {
             break;
