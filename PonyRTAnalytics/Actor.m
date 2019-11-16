@@ -14,10 +14,11 @@
 
 @implementation Actor
 
-- (id) initWithTag:(unsigned long) actorTag {
+- (id) initWithUUID:(unsigned long) actorUUID {
     self = [super init];
     if (self) {
-        _tag = actorTag;
+        _uuid = actorUUID;
+        _tag = 0;
         _numMessages = 0;
         _batchSize = 0;
         _priority = 0;
@@ -26,18 +27,21 @@
 }
 
 - (long) compare:(Actor *) other {
-    return (long)other.tag - (long)_tag;
-}
-
-- (void) reloadLabels {
-    if (tagTexture == 0) {
-        tagTexture = createStringTexture([NSString stringWithFormat:@"%lu", _tag], &tagSize);
-    } else {
-        tagTexture = updateStringTexture(tagTexture, [NSString stringWithFormat:@"%lu", _tag], &tagSize);
-    }
+    return (long)other.uuid - (long)_uuid;
 }
 
 - (void) renderLabels:(float)size {
+    
+    if (lastTag != _tag) {
+        lastTag = _tag;
+        
+        if (tagTexture == 0) {
+            tagTexture = createStringTexture([NSString stringWithFormat:@"%lu", _tag], &tagSize);
+        } else {
+            tagTexture = updateStringTexture(tagTexture, [NSString stringWithFormat:@"%lu", _tag], &tagSize);
+        }
+    }
+    
     if (tagTexture != 0) {
         float h = size * 0.75f;
         float w = tagSize.width * (h / tagSize.height);
@@ -69,7 +73,7 @@
         lastMsgValue1 = _numMessages;
         lastMsgValue2 = heapSizeInMB;
         
-        NSString * msgString = [NSString stringWithFormat:@"%lu of %lu\n%lu MB", _numMessages, _batchSize, heapSizeInMB];
+        NSString * msgString = [NSString stringWithFormat:@"%lu of %lu\n%ld MB / P %ld ", _numMessages, _batchSize, heapSizeInMB, _priority];
         if (msgTexture == 0) {
             msgTexture = createStringTexture(msgString, &msgSize);
         } else {
@@ -84,8 +88,10 @@
         float w = msgSize.width * (h / msgSize.height);
         float yOffset = -(h * 2.0f);
         
-        if (_numMessages > _batchSize) {
-            glColor3f(1.0f, 0.0f, 0.0f);
+        if (_overloaded) {
+            glColor3ub(255, 126, 0);
+        } else if (_underpressure) {
+            glColor3ub(255, 220, 0);
         } else {
             glColor3f(1.0f, 1.0f, 1.0f);
         }

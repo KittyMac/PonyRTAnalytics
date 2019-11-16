@@ -30,6 +30,7 @@ enum {
 }
 
 @property (nonatomic, assign) unsigned long time;
+@property (nonatomic, assign) unsigned long actorUUID;
 @property (nonatomic, assign) unsigned long actorTag;
 @property (nonatomic, assign) unsigned long eventID;
 @property (nonatomic, assign) unsigned long actorNumMessages;
@@ -37,6 +38,7 @@ enum {
 @property (nonatomic, assign) unsigned long actorPriority;
 @property (nonatomic, assign) unsigned long actorHeapSize;
 
+@property (nonatomic, assign) unsigned long toActorUUID;
 @property (nonatomic, assign) unsigned long toActorTag;
 @property (nonatomic, assign) unsigned long toActorNumberOfMessages;
 

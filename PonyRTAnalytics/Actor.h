@@ -13,6 +13,7 @@
 {
     GLuint tagTexture;
     NSSize tagSize;
+    unsigned long lastTag;
     
     GLuint msgTexture;
     NSSize msgSize;
@@ -20,10 +21,11 @@
     unsigned long lastMsgValue2;
 }
 
+@property (nonatomic, assign) unsigned long uuid;
 @property (nonatomic, assign) unsigned long tag;
 @property (nonatomic, assign) unsigned long numMessages;
 @property (nonatomic, assign) unsigned long batchSize;
-@property (nonatomic, assign) unsigned long priority;
+@property (nonatomic, assign) long priority;
 @property (nonatomic, assign) unsigned long heapSize;
 
 @property (nonatomic, assign) bool running;
@@ -35,7 +37,7 @@
 @property (nonatomic, assign) float y;
 
 
-- (id) initWithTag:(unsigned long) actorTag;
+- (id) initWithUUID:(unsigned long) actorUUID;
 - (void) reloadLabels;
 - (void) renderLabels:(float)size;
 - (void) renderQuad:(float)size;

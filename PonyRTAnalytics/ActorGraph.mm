@@ -34,25 +34,25 @@
     self = [super init];
     if (self) {
         // run through all of the events first and find the largest actor tag
-        unsigned long maxActorTag = 0;
+        unsigned long maxActorUUID = 0;
         for (PonyEvent * evt in ponyEvents) {
-            if (evt.actorTag > maxActorTag) {
-                maxActorTag = evt.actorTag;
+            if (evt.actorUUID > maxActorUUID) {
+                maxActorUUID = evt.actorUUID;
             }
-            if (evt.toActorTag > maxActorTag) {
-                maxActorTag = evt.toActorTag;
+            if (evt.toActorUUID > maxActorUUID) {
+                maxActorUUID = evt.toActorUUID;
             }
         }
         
         // allocate an array large enough to hold all of them.  Now, I know this is wasteful of memory,
         // but the lookup speeds are as fast as they come and using a hashmap is too slow.
-        actorLUT = (void **)calloc(sizeof(Actor *) * (maxActorTag + 1), 1);
+        actorLUT = (void **)calloc(sizeof(Actor *) * (maxActorUUID + 1), 1);
         _actors = [NSMutableArray array];
         
         // go back through an register actors
         for (PonyEvent * evt in ponyEvents) {
-            [self registerActor:evt.actorTag];
-            [self registerActor:evt.toActorTag];
+            [self registerActor:evt.actorUUID andTag:evt.actorTag];
+            [self registerActor:evt.toActorUUID andTag:evt.actorTag];
         }
         
         
@@ -83,15 +83,16 @@
         
         // run through all actors and add nodes
         for (Actor * actor in _actors) {
-            node * node = my_nodes->add_node(actor.tag);
+            node * node = my_nodes->add_node(actor.uuid);
             node->x_pos = actor.x * kPhysicsScale;
             node->y_pos = actor.y * kPhysicsScale;
         }
         // run through all events add connections
         for (PonyEvent * evt in ponyEvents) {
-            if (evt.eventID == ANALYTIC_APP_MESSAGE_SENT) {
-                node * from_node = my_nodes->get_node(evt.actorTag);
-                node * to_node = my_nodes->get_node(evt.toActorTag);
+            if (evt.eventID == ANALYTIC_APP_MESSAGE_SENT &&
+                evt.actorUUID != evt.toActorUUID) {
+                node * from_node = my_nodes->get_node(evt.actorUUID);
+                node * to_node = my_nodes->get_node(evt.toActorUUID);
                 from_node->add_connection(to_node);
             }
         }
@@ -107,7 +108,7 @@
         _minY = 9999999.0f;
         _maxY = -9999999.0f;
         for (Actor * actor in _actors) {
-            node * actor_node = my_nodes->get_node(actor.tag);
+            node * actor_node = my_nodes->get_node(actor.uuid);
             actor.x = actor_node->x_pos / kPhysicsScale;
             actor.y = actor_node->y_pos / kPhysicsScale;
             
@@ -123,29 +124,30 @@
             if (actor.y > _maxY) {
                 _maxY = actor.y;
             }
-            
-            [actor reloadLabels];
         }
         
     }
     return self;
 }
 
-- (void) registerActor:(unsigned long) actorTag {
-    if (actorTag > 0) {
-        Actor * actor = (__bridge Actor *)actorLUT[actorTag];
+- (void) registerActor:(unsigned long) actorUUID
+                andTag:(unsigned long) actorTag {
+    if (actorUUID > 0) {
+        Actor * actor = (__bridge Actor *)actorLUT[actorUUID];
         if (actor == NULL) {
-            Actor * actor = [[Actor alloc] initWithTag:actorTag];
+            Actor * actor = [[Actor alloc] initWithUUID:actorUUID];
+            actor.tag = actorTag;
             [_actors addObject:actor];
-            actorLUT[actorTag] = (__bridge void *)actor;
+            actorLUT[actorUUID] = (__bridge void *)actor;
         }
     }
 }
 
 - (void) executeEvent:(PonyEvent *)event {
     
-    Actor * actor = (__bridge Actor *)(actorLUT[event.actorTag]);
+    Actor * actor = (__bridge Actor *)(actorLUT[event.actorUUID]);
     
+    actor.tag = event.actorTag;
     actor.numMessages = event.actorNumMessages;
     actor.batchSize = event.actorBatchSize;
     actor.priority = event.actorPriority;
@@ -255,11 +257,7 @@
     glBegin(GL_QUADS);
     for (Actor * actor in _actors) {
         // if we're overloaded, we draw orange
-        if (actor.overloaded) {
-            glColor3ub(255, 126, 0);
-        } else if(actor.underpressure) {
-            glColor3ub(255, 220, 0);
-        } else if(actor.running) {
+        if(actor.running) {
             glColor3ub(164, 164, 255);
         } else {
             // if we're idle, we draw grey
