@@ -94,7 +94,9 @@
                 evt.actorUUID != evt.toActorUUID) {
                 node * from_node = my_nodes->get_node(evt.actorUUID);
                 node * to_node = my_nodes->get_node(evt.toActorUUID);
-                from_node->add_connection(to_node);
+                if (from_node != NULL && to_node != NULL) {
+                    from_node->add_connection(to_node);
+                }
             }
         }
         
