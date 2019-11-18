@@ -33,6 +33,11 @@
     _batchSize = 0;
     _priority = 0;
     _heapSize = 0;
+    
+    _running = false;
+    _muted = false;
+    _overloaded = false;
+    _underpressure = false;
 }
 
 - (void) renderLabels:(float)size {
@@ -78,7 +83,7 @@
         lastMsgValue1 = _numMessages;
         lastMsgValue2 = heapSizeInMB;
         
-        NSString * msgString = [NSString stringWithFormat:@"%lu of %lu\n%ld MB", _numMessages, _batchSize, heapSizeInMB];
+        NSString * msgString = [NSString stringWithFormat:@"%lu of %lu\n%ld MB : %ld P", _numMessages, _batchSize, heapSizeInMB, _priority];
         if (msgTexture == 0) {
             msgTexture = createStringTexture(msgString, &msgSize);
         } else {
