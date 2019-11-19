@@ -244,14 +244,21 @@
     for(Actor * actor in _actors) {
         [actor reset];
     }
+    
+    [messages removeAllObjects];
 }
 
 - (BOOL) update:(float)delta {
-    for (Message * message in [NSArray arrayWithArray:messages]) {
-        if( [message update:delta] == NO ){
-            [messages removeObject:message];
+    // If you think about it, adding still alive messages to an new array already sized to
+    // fit everything will be infinitely more performant than removing items which are
+    // dead from a mutable array.
+    NSMutableArray * messagesCopy = [NSMutableArray arrayWithCapacity:[messages count]];
+    for (Message * message in messages) {
+        if( [message update:delta] == YES ){
+            [messagesCopy addObject:message];
         }
     }
+    messages = messagesCopy;
     return true;
 }
 
