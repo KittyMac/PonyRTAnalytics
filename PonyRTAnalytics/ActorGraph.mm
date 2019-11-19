@@ -149,6 +149,8 @@
 - (void) executeEvent:(PonyEvent *)event
            isDragging:(BOOL)isDragging {
     
+    totalMemoryUsage = event.totalMemoryUsage;
+    
     Actor * actor = (__bridge Actor *)(actorLUT[event.actorUUID]);
     
     actor.tag = event.actorTag;
@@ -327,8 +329,56 @@
     }
     glEnd();
     
+    
+    unsigned long actorMemoryUsage = 0;
+    
     for (Actor * actor in _actors) {
         [actor renderLabels:labelSize];
+        
+        actorMemoryUsage += actor.heapSize;
+    }
+    
+    
+    // render total stats (such as total memory usage)
+    if (totalMemoryUsageCache != totalMemoryUsage) {
+        totalMemoryUsageCache = totalMemoryUsage;
+        
+        NSString * memoryStatsString = [NSString stringWithFormat:@"OS Memory: %lu MB\nActor Memory: %lu MB",
+                                            (totalMemoryUsage / (1024 * 1024)),
+                                            (actorMemoryUsage / (1024 * 1024))
+                                        ];
+        
+        if (totalMemoryUsageTexture == 0) {
+            totalMemoryUsageTexture = createStringTexture(memoryStatsString, &totalMemoryUsageSize);
+        } else {
+            totalMemoryUsageTexture = updateStringTexture(totalMemoryUsageTexture, memoryStatsString, &totalMemoryUsageSize);
+        }
+        
+        glEnable(GL_TEXTURE_2D);
+    }
+    
+    if (totalMemoryUsageTexture != 0) {
+        float h = 0.08f;
+        float w = totalMemoryUsageSize.width * (h / totalMemoryUsageSize.height);
+        float x = _minX;
+        float y = _maxY;
+        
+        glColor3f(1.0f, 1.0f, 1.0f);
+        
+        glBindTexture(GL_TEXTURE_2D, totalMemoryUsageTexture);
+        
+        glBegin(GL_QUADS);
+        
+        glTexCoord2f(0.0f, 1.0f);
+        glVertex3f(x+w*0, y+h*1, 0.0f);
+        glTexCoord2f(1.0f, 1.0f);
+        glVertex3f(x+w*1, y+h*1, 0.0f);
+        glTexCoord2f(1.0f, 0.0f);
+        glVertex3f(x+w*1, y+h*2, 0.0f);
+        glTexCoord2f(0.0f, 0.0f);
+        glVertex3f(x+w*0, y+h*2, 0.0f);
+        
+        glEnd();
     }
     
     glBindTexture(GL_TEXTURE_2D, 0);

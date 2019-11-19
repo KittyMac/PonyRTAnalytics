@@ -43,6 +43,8 @@ enum {
 @property (nonatomic, assign) unsigned long toActorTag;
 @property (nonatomic, assign) unsigned long toActorNumberOfMessages;
 
+@property (nonatomic, assign) unsigned long totalMemoryUsage;
+
 - (id) initWithCSV:(NSString *)string;
 
 @end

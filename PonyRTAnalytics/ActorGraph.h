@@ -24,6 +24,11 @@
     void ** actorLUT;
     
     NSMutableArray * messages;
+    
+    GLuint totalMemoryUsageTexture;
+    NSSize totalMemoryUsageSize;
+    unsigned long totalMemoryUsage;
+    unsigned long totalMemoryUsageCache;
 }
 
 @property (nonatomic, retain) NSMutableArray * actors;

@@ -115,7 +115,7 @@ NSImage * imageForString(NSString * astring, NSSize * size) {
     *size = bounding_box;
     
     return [NSImage loadImage:temp_image
-             IntoPowerOf2Size:64];
+             IntoPowerOf2Size:128];
 }
 
 
