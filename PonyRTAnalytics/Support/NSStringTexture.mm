@@ -83,14 +83,15 @@ NSImage * imageForString(NSString * astring, NSSize * size) {
                     forKey:NSParagraphStyleAttributeName];
     [bold12Black setObject: [NSColor blackColor]
                     forKey: NSForegroundColorAttributeName];
-    [bold12Black setObject: [NSNumber numberWithFloat:-3.0]
+    [bold12Black setObject: [NSNumber numberWithFloat:-10.0]
                     forKey: NSStrokeWidthAttributeName];
     
     // Shadow attributes
+    /*
     [shadow setShadowOffset:NSMakeSize(0.0, -1.0)];
     [shadow setShadowColor:[NSColor blackColor]];
-    [shadow setShadowBlurRadius:3.0];
-    [bold12Black setObject: shadow forKey: NSShadowAttributeName];
+    [shadow setShadowBlurRadius:2.0];
+    [bold12Black setObject: shadow forKey: NSShadowAttributeName];*/
     
     // Determine the size of cache needed to hold the string
     bounding_box = [astring sizeWithAttributes:bold12Black];

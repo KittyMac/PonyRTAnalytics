@@ -29,6 +29,8 @@
     NSSize totalMemoryUsageSize;
     unsigned long totalMemoryUsage;
     unsigned long totalMemoryUsageCache;
+    
+    unsigned long actorMemoryUsageCache;
 }
 
 @property (nonatomic, retain) NSMutableArray * actors;

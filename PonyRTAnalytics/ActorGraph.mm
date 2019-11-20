@@ -265,8 +265,12 @@
 }
 
 - (void) render {
+    static unsigned long frameNumber = 0;
+    
     float size = 0.05f;
     float labelSize = 0.025f;
+    
+    BOOL shouldUpdateLabels = (frameNumber++ % 3) == 0;
     
     glDisable(GL_LIGHTING);
     
@@ -333,19 +337,21 @@
     unsigned long actorMemoryUsage = 0;
     
     for (Actor * actor in _actors) {
-        [actor renderLabels:labelSize];
+        [actor renderLabels:labelSize
+               shouldUpdate:shouldUpdateLabels];
         
         actorMemoryUsage += actor.heapSize;
     }
     
     
     // render total stats (such as total memory usage)
-    if (totalMemoryUsageCache != totalMemoryUsage) {
+    if (shouldUpdateLabels && (totalMemoryUsageCache != totalMemoryUsage || actorMemoryUsageCache != actorMemoryUsage)) {
         totalMemoryUsageCache = totalMemoryUsage;
+        actorMemoryUsageCache = actorMemoryUsage;
         
-        NSString * memoryStatsString = [NSString stringWithFormat:@"OS Memory: %lu MB\nActor Memory: %lu MB",
-                                            (totalMemoryUsage / (1024 * 1024)),
-                                            (actorMemoryUsage / (1024 * 1024))
+        NSString * memoryStatsString = [NSString stringWithFormat:@"OS Memory: %0.2f MB\nActor Memory: %0.2f MB",
+                                            ((double)totalMemoryUsage / (1024.0 * 1024.0)),
+                                            ((double)actorMemoryUsage / (1024.0 * 1024.0))
                                         ];
         
         if (totalMemoryUsageTexture == 0) {

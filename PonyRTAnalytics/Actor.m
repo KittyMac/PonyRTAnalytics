@@ -40,9 +40,10 @@
     _underpressure = false;
 }
 
-- (void) renderLabels:(float)size {
+- (void) renderLabels:(float)size
+         shouldUpdate:(BOOL)shouldUpdate {
     
-    if (lastTag != _tag) {
+    if (shouldUpdate && lastTag != _tag) {
         lastTag = _tag;
         
         if (tagTexture == 0) {
@@ -78,7 +79,7 @@
     
     unsigned long heapSizeInMB = (_heapSize / (1024 * 1024));
     
-    if (msgTexture == 0 || lastMsgValue1 != _numMessages || lastMsgValue2 != heapSizeInMB) {
+    if (shouldUpdate && (msgTexture == 0 || lastMsgValue1 != _numMessages || lastMsgValue2 != heapSizeInMB)) {
         
         lastMsgValue1 = _numMessages;
         lastMsgValue2 = heapSizeInMB;
