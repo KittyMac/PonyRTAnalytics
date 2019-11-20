@@ -196,6 +196,24 @@
                 Actor * from = (__bridge Actor *)actorLUT[event.actorUUID];
                 Actor * to = (__bridge Actor *)actorLUT[event.toActorUUID];
                 if (from != NULL && to != NULL && from != to) {
+                    
+                    // Check the previous few messages added.  If there is one visually close
+                    // enough to me save performance by skipping me
+                    if ([messages count] > 256) {
+                        unsigned long maxIdx = [messages count] - 1;
+                        unsigned long minIdx = maxIdx - 256;
+
+                        for (unsigned long i = maxIdx; i > minIdx; i--) {
+                            Message * other = [messages objectAtIndex:i];
+                            if ([other isNew] &&
+                                other.from == from &&
+                                other.to == to &&
+                                other.isAppMessage == (event.eventID == ANALYTIC_APP_MESSAGE_SENT)) {
+                                return;
+                            }
+                        }
+                    }
+                    
                     Message * msg = [[Message alloc] initWithEvent:event
                                                          fromActor:from
                                                            toActor:to];
@@ -270,7 +288,7 @@
     float size = 0.05f;
     float labelSize = 0.025f;
     
-    BOOL shouldUpdateLabels = (frameNumber++ % 3) == 0;
+    BOOL shouldUpdateLabels = (frameNumber++ % 6) == 0;
     
     glDisable(GL_LIGHTING);
     
@@ -336,11 +354,14 @@
     
     unsigned long actorMemoryUsage = 0;
     
+    unsigned long actorIdx = 0;
     for (Actor * actor in _actors) {
+        // rendering labels is super inefficient; to combat this, only render a subset of lebels every frame
         [actor renderLabels:labelSize
-               shouldUpdate:shouldUpdateLabels];
+               shouldUpdate:(actorIdx % 8) == (frameNumber % 8)];
         
         actorMemoryUsage += actor.heapSize;
+        actorIdx += 1;
     }
     
     

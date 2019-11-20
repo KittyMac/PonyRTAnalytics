@@ -25,6 +25,8 @@
 - (id) initWithEvent:(PonyEvent *) event
            fromActor:(Actor *)from
              toActor:(Actor *)to;
+
+- (BOOL) isNew;
 - (void) renderQuad:(float)size;
 - (BOOL) update:(float)delta;
 

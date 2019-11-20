@@ -41,6 +41,10 @@
     return self;
 }
 
+- (BOOL) isNew {
+    return anim < 0.01f;
+}
+
 - (BOOL) update:(float)delta {
     anim += delta;
     return (anim <= 1.0f);
