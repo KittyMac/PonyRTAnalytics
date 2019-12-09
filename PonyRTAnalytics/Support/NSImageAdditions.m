@@ -98,6 +98,35 @@ NSRect NSRectInsideRect(NSRect a, NSRect b)
 	renderCapabilitiesChecked = 1;
 }
 
+- (NSBitmapImageRep *)bitmapImageRepresentation {
+  int width = [self size].width;
+  int height = [self size].height;
+
+  if(width < 1 || height < 1)
+      return nil;
+
+  NSBitmapImageRep *rep = [[NSBitmapImageRep alloc]
+                           initWithBitmapDataPlanes: NULL
+                           pixelsWide: width
+                           pixelsHigh: height
+                           bitsPerSample: 8
+                           samplesPerPixel: 4
+                           hasAlpha: YES
+                           isPlanar: NO
+                           colorSpaceName: NSDeviceRGBColorSpace
+                           bytesPerRow: width * 4
+                           bitsPerPixel: 32];
+
+  NSGraphicsContext *ctx = [NSGraphicsContext graphicsContextWithBitmapImageRep: rep];
+  [NSGraphicsContext saveGraphicsState];
+  [NSGraphicsContext setCurrentContext: ctx];
+  [self drawAtPoint: NSZeroPoint fromRect: NSZeroRect operation: NSCompositeCopy fraction: 1.0];
+  [ctx flushGraphics];
+  [NSGraphicsContext restoreGraphicsState];
+
+  return rep;
+}
+
 -(GLuint) texture:(int)mode
 	  compression:(int)compression
 		  replace:(GLint) replace_texture
@@ -105,7 +134,12 @@ NSRect NSRectInsideRect(NSRect a, NSRect b)
 // Derived from http://developer.apple.com/qa/qa2001/qa1325.html
 {
     // Bitmap generation from source view
-    NSBitmapImageRep * bitmap = [NSBitmapImageRep alloc];
+    BOOL isFlipped = [self isFlipped];
+
+    [self setFlipped:!isFlipped];
+    NSBitmapImageRep * bitmap = [self bitmapImageRepresentation];
+    [self setFlipped:isFlipped];
+    
     int samplesPerPixel = 0;
 	GLuint texName;
 	NSRect bounds = NSMakeRect(0, 0, 0, 0);
@@ -113,21 +147,11 @@ NSRect NSRectInsideRect(NSRect a, NSRect b)
 	
 	int is_power_of_2 = 0;
 	unsigned int texture_mode = GL_TEXTURE_RECTANGLE_ARB;
-	BOOL isFlipped = [self isFlipped];
 	
 	bounds.size = [self size];
 	bounds.size.width = ceil(bounds.size.width);
 	bounds.size.height = ceil(bounds.size.height);
-	
-	// Flip it to make it OpenGL friendly in its origin...
-	[self setFlipped:!isFlipped];
-	
-    [self lockFocus];
-    (void)[bitmap initWithFocusedViewRect:bounds];
-    [self unlockFocus];
-	
-	[self setFlipped:isFlipped];
-	
+		
 	if(!renderCapabilitiesChecked)
 	{
 		[self checkRendererCapabilities];
@@ -177,7 +201,7 @@ NSRect NSRectInsideRect(NSRect a, NSRect b)
 	glBindTexture (texture_mode, texName);
 	
     samplesPerPixel = (int)[bitmap samplesPerPixel];
-    
+        
     // Non-planar, RGB 24 bit bitmap, or RGBA 32 bit bitmap
     if(![bitmap isPlanar] && 
        (samplesPerPixel == 3 || samplesPerPixel == 4))
@@ -203,7 +227,7 @@ NSRect NSRectInsideRect(NSRect a, NSRect b)
 			{
 				while(k--)
 				{
-					*(ptr++) = 255;
+                    *(ptr++) = 255;
 					*(ptr++) = 255;
 					*(ptr++) = 255;
 					ptr++;

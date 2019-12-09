@@ -64,9 +64,11 @@
 
 - (void) Render {
     
-    float aspect = glview.frame.size.width / glview.frame.size.height;
+    NSRect backingRect = [glview convertRectToBacking:[glview bounds]];
     
-    glViewport(0, 0, glview.frame.size.width, glview.frame.size.height);
+    float aspect = backingRect.size.width / backingRect.size.height;
+    
+    glViewport(0, 0, backingRect.size.width, backingRect.size.height);
     glMatrixMode(GL_PROJECTION);
     glPushMatrix();
     glLoadIdentity();

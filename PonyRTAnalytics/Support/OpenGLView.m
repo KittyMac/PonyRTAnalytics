@@ -58,6 +58,8 @@
 	if(didInit == NO)
 	{
 		didInit = YES;
+        
+        [self setWantsBestResolutionOpenGLSurface:YES];
 		
 		GLint swap_enabled = 1;
 		[[self openGLContext] setValues:&swap_enabled forParameter:NSOpenGLCPSwapInterval];
@@ -73,7 +75,7 @@
 		[_delegate Init];
 	}
     
-    
+    [super prepareOpenGL];
 }
 
 - (void)setLayer:(CALayer*)layer
