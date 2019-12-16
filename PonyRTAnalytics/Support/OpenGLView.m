@@ -113,6 +113,7 @@
 - (void) reshape
 {
 	[_delegate Reshape];
+    [super reshape];
 }
 
 
